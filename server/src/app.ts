@@ -3,10 +3,12 @@ import { Hono } from 'hono'
 import { db } from './prisma/db.js'
 import authRoutes from './routes/auth.routes.js'
 import cvRoutes from './routes/cv.routes.js'
+import educationRoutes from './routes/education.routes.js'
 
 const app = new Hono()
 app.route('/api/auth', authRoutes)
 app.route('/api/cv', cvRoutes)
+app.route('/api/education', educationRoutes)
 
 app.get('/api/health', (c) => {
   return c.json({
