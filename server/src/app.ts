@@ -9,6 +9,7 @@ import experienceRoutes from './routes/experience.routes.js'
 import projectRoutes from './routes/project.routes.js'
 import certificationRoutes from './routes/certification.routes.js'
 import languageRoutes from './routes/language.routes.js'
+import jobDescriptionRoutes from './routes/jobDescription.routes.js'
 
 const app = new Hono()
 app.route('/api/auth', authRoutes)
@@ -19,6 +20,7 @@ app.route('/api/experience', experienceRoutes)
 app.route('/api/projects', projectRoutes)
 app.route('/api/certifications', certificationRoutes)
 app.route('/api/languages', languageRoutes)
+app.route('/api/job-descriptions', jobDescriptionRoutes)
 
 app.get('/api/health', (c) => {
   return c.json({
