@@ -6,6 +6,7 @@ import cvRoutes from './routes/cv.routes.js'
 import educationRoutes from './routes/education.routes.js'
 import skillRoutes from './routes/skill.routes.js'
 import experienceRoutes from './routes/experience.routes.js'
+import projectRoutes from './routes/project.routes.js'
 
 const app = new Hono()
 app.route('/api/auth', authRoutes)
@@ -13,6 +14,7 @@ app.route('/api/cv', cvRoutes)
 app.route('/api/education', educationRoutes)
 app.route('/api/skills', skillRoutes)
 app.route('/api/experience', experienceRoutes)
+app.route('/api/projects', projectRoutes)
 
 app.get('/api/health', (c) => {
   return c.json({
