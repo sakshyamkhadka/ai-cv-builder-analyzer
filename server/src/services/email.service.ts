@@ -94,3 +94,63 @@ export const sendVerificationEmail = async ({
     `
   })
 }
+export const sendPasswordResetEmail = async ({
+  to,
+  name,
+  token
+}: {
+  to: string
+  name: string
+  token: string
+}) => {
+  const frontendUrl = process.env.FRONTEND_URL
+
+  if (!frontendUrl) {
+    throw new Error('FRONTEND_URL is not configured')
+  }
+
+  const resetUrl =
+    `${frontendUrl}/reset-password?token=${encodeURIComponent(token)}`
+
+  return sendEmail({
+    to,
+    subject: 'Reset your CV Builder password',
+    html: `
+      <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+        <h2>Password Reset Request</h2>
+
+        <p>Hello ${name},</p>
+
+        <p>
+          We received a request to reset the password for your
+          CV Builder account.
+        </p>
+
+        <p>
+          <a
+            href="${resetUrl}"
+            style="
+              display:inline-block;
+              padding:12px 20px;
+              background:#111827;
+              color:#ffffff;
+              text-decoration:none;
+              border-radius:6px;
+            "
+          >
+            Reset Password
+          </a>
+        </p>
+
+        <p>
+          This password reset link will expire in 1 hour.
+        </p>
+
+        <p>
+          If you did not request a password reset, you can safely
+          ignore this email.
+        </p>
+      </div>
+    `
+  })
+}

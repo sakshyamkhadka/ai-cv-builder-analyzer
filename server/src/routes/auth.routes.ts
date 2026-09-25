@@ -5,7 +5,9 @@ import {
   login,
   updateProfile,
   verifyEmail,
-  resendVerificationEmail
+  resendVerificationEmail,
+  forgotPassword,
+  resetPassword
 } from '../controllers/auth.controller.js'
 import { authMiddleware } from '../middleware/auth.middleware.js'
 import { db } from '../prisma/db.js'
@@ -23,7 +25,9 @@ authRoutes.get('/test', (c) => {
 authRoutes.post('/register', register)
 authRoutes.post('/login', login)
 authRoutes.get('/verify-email', verifyEmail)
-authRoutes.post('/resend-verification',resendVerificationEmail  )
+authRoutes.post('/resend-verification', resendVerificationEmail)
+authRoutes.post('/forgot-password', forgotPassword)
+authRoutes.post('/reset-password', resetPassword)
 
 authRoutes.get('/me', authMiddleware, async (c) => {
   const authUser = c.get('user')

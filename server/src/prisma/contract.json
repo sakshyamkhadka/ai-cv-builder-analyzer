@@ -1361,6 +1361,20 @@
                   "kind": "scalar"
                 }
               },
+              "passwordResetExpiresAt": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "kind": "scalar"
+                }
+              },
+              "passwordResetTokenHash": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
               "phone": {
                 "nullable": true,
                 "type": {
@@ -1470,6 +1484,12 @@
                 },
                 "password": {
                   "column": "password"
+                },
+                "passwordResetExpiresAt": {
+                  "column": "passwordResetExpiresAt"
+                },
+                "passwordResetTokenHash": {
+                  "column": "passwordResetTokenHash"
                 },
                 "phone": {
                   "column": "phone"
@@ -2480,6 +2500,16 @@
                   "nativeType": "text",
                   "nullable": false
                 },
+                "passwordResetExpiresAt": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "nativeType": "timestamptz",
+                  "nullable": true
+                },
+                "passwordResetTokenHash": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
                 "phone": {
                   "codecId": "pg/text@1",
                   "nativeType": "text",
@@ -2517,6 +2547,11 @@
                   "columns": [
                     "emailVerificationTokenHash"
                   ]
+                },
+                {
+                  "columns": [
+                    "passwordResetTokenHash"
+                  ]
                 }
               ]
             }
@@ -2526,7 +2561,7 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "1bec55cc33fd7536e45362ebbda471873ad39afeb68d04bf3db5c41cdcd03212"
+    "storageHash": "ebec57869af262895be91a6a7fae8daba86d1f727d5481f6846d27ffb42e684d"
   },
   "execution": {
     "executionHash": "eb0aeb2becfb9c96897436f6ddd60b33d872d53452ae18f5e9eb1ae1f0d7d242",

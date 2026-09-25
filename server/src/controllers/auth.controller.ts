@@ -14,12 +14,22 @@ import {
 } from '../services/email.service.js'
 
 import {
+  createPasswordResetToken,
+  hashPasswordResetToken
+} from '../utils/passwordReset.js'
+
+import {
+  sendPasswordResetEmail
+} from '../services/email.service.js'
+
+import {
   registerSchema,
   loginSchema,
   updateProfileSchema,
-  resendVerificationSchema
+  resendVerificationSchema,
+  forgotPasswordSchema,
+  resetPasswordSchema
 } from '../validators/auth.validator.js'
-
 export const register = async (c: Context) => {
   try {
     const body = await c.req.json()
@@ -455,6 +465,175 @@ export const resendVerificationEmail = async (c: Context) => {
         success: false,
         message:
           'Something went wrong while sending the verification email'
+      },
+      500
+    )
+  }
+}
+export const forgotPassword = async (c: Context) => {
+  try {
+    const body = await c.req.json()
+
+    const result = forgotPasswordSchema.safeParse(body)
+
+    if (!result.success) {
+      return c.json(
+        {
+          success: false,
+          message: 'Validation failed',
+          errors: result.error.flatten().fieldErrors
+        },
+        400
+      )
+    }
+
+    const { email } = result.data
+
+    const user = await db.orm.public.User
+      .where({ email })
+      .first()
+
+    if (!user) {
+      return c.json({
+        success: true,
+        message:
+          'If the account exists, a password reset email has been sent'
+      })
+    }
+
+    const {
+      token: resetToken,
+      tokenHash: resetTokenHash,
+      expiresAt: resetExpiresAt
+    } = createPasswordResetToken()
+
+    await db.orm.public.User
+      .where({
+        id: user.id
+      })
+      .update({
+        passwordResetTokenHash: resetTokenHash,
+        passwordResetExpiresAt: resetExpiresAt
+      })
+
+    await sendPasswordResetEmail({
+      to: user.email,
+      name: user.name,
+      token: resetToken
+    })
+
+    return c.json({
+      success: true,
+      message:
+        'If the account exists, a password reset email has been sent'
+    })
+  } catch (error) {
+    console.error('Forgot password error:', error)
+
+    return c.json(
+      {
+        success: false,
+        message:
+          'Something went wrong while processing the password reset request'
+      },
+      500
+    )
+  }
+}
+
+export const resetPassword = async (c: Context) => {
+  try {
+    const body = await c.req.json()
+
+    const result = resetPasswordSchema.safeParse(body)
+
+    if (!result.success) {
+      return c.json(
+        {
+          success: false,
+          message: 'Validation failed',
+          errors: result.error.flatten().fieldErrors
+        },
+        400
+      )
+    }
+
+    const {
+      token,
+      password
+    } = result.data
+
+    const tokenHash = hashPasswordResetToken(token)
+
+    const user = await db.orm.public.User
+      .where({
+        passwordResetTokenHash: tokenHash
+      })
+      .first()
+
+    if (!user) {
+      return c.json(
+        {
+          success: false,
+          message: 'Invalid or expired password reset token'
+        },
+        400
+      )
+    }
+
+    if (
+      !user.passwordResetExpiresAt ||
+      new Date(
+        user.passwordResetExpiresAt
+      ).getTime() < Date.now()
+    ) {
+      return c.json(
+        {
+          success: false,
+          message: 'Password reset token has expired'
+        },
+        400
+      )
+    }
+
+    const hashedPassword = await bcrypt.hash(
+      password,
+      10
+    )
+
+    const updatedUser =
+      await db.orm.public.User
+        .where({
+          id: user.id
+        })
+        .update({
+          password: hashedPassword,
+          passwordResetTokenHash: null,
+          passwordResetExpiresAt: null
+        })
+
+    if (!updatedUser) {
+      return c.json(
+        {
+          success: false,
+          message: 'Failed to reset password'
+        },
+        500
+      )
+    }
+
+    return c.json({
+      success: true,
+      message: 'Password reset successfully'
+    })
+  } catch (error) {
+    console.error('Reset password error:', error)
+
+    return c.json(
+      {
+        success: false,
+        message:
+          'Something went wrong while resetting the password'
       },
       500
     )
