@@ -12,6 +12,7 @@ import languageRoutes from './routes/language.routes.js'
 import jobDescriptionRoutes from './routes/jobDescription.routes.js'
 import cvAnalysisRoutes from './routes/cvAnalysis.routes.js'
 import jobMatchRoutes from './routes/jobMatch.routes.js'
+import templateRoutes from './routes/template.routes.js'
 
 const app = new Hono()
 app.route('/api/auth', authRoutes)
@@ -25,6 +26,7 @@ app.route('/api/languages', languageRoutes)
 app.route('/api/job-descriptions', jobDescriptionRoutes)
 app.route('/api/cv-analysis', cvAnalysisRoutes)
 app.route('/api/job-matches', jobMatchRoutes)
+app.route('/api/templates', templateRoutes)
 
 app.get('/api/health', (c) => {
   return c.json({
