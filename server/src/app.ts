@@ -1,5 +1,6 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
+import { cors } from 'hono/cors'
 import { db } from './prisma/db.js'
 import authRoutes from './routes/auth.routes.js'
 import cvRoutes from './routes/cv.routes.js'
@@ -15,6 +16,25 @@ import jobMatchRoutes from './routes/jobMatch.routes.js'
 import templateRoutes from './routes/template.routes.js'
 
 const app = new Hono()
+app.use(
+  '/api/*',
+  cors({
+    origin: 'http://localhost:5173',
+    allowHeaders: [
+      'Content-Type',
+      'Authorization'
+    ],
+    allowMethods: [
+      'GET',
+      'POST',
+      'PUT',
+      'PATCH',
+      'DELETE',
+      'OPTIONS'
+    ]
+  })
+)
+
 app.route('/api/auth', authRoutes)
 app.route('/api/cv', cvRoutes)
 app.route('/api/education', educationRoutes)
