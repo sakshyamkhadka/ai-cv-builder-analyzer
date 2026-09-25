@@ -37,3 +37,10 @@ export const updateProfileSchema = z.object({
     .string()
     .optional()
 })
+export const resendVerificationSchema = z.object({
+  email: z
+    .string()
+    .email('Invalid email address')
+    .trim()
+    .toLowerCase()
+})

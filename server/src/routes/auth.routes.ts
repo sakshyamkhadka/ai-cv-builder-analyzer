@@ -3,7 +3,9 @@ import type { AppEnv } from '../middleware/auth.middleware.js'
 import {
   register,
   login,
-  updateProfile
+  updateProfile,
+  verifyEmail,
+  resendVerificationEmail
 } from '../controllers/auth.controller.js'
 import { authMiddleware } from '../middleware/auth.middleware.js'
 import { db } from '../prisma/db.js'
@@ -20,6 +22,8 @@ authRoutes.get('/test', (c) => {
 
 authRoutes.post('/register', register)
 authRoutes.post('/login', login)
+authRoutes.get('/verify-email', verifyEmail)
+authRoutes.post('/resend-verification',resendVerificationEmail  )
 
 authRoutes.get('/me', authMiddleware, async (c) => {
   const authUser = c.get('user')

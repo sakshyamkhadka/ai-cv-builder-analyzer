@@ -1319,6 +1319,27 @@
                   "kind": "scalar"
                 }
               },
+              "emailVerificationExpiresAt": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "kind": "scalar"
+                }
+              },
+              "emailVerificationTokenHash": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "emailVerified": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/bool@1",
+                  "kind": "scalar"
+                }
+              },
               "id": {
                 "nullable": false,
                 "type": {
@@ -1431,6 +1452,15 @@
                 },
                 "email": {
                   "column": "email"
+                },
+                "emailVerificationExpiresAt": {
+                  "column": "emailVerificationExpiresAt"
+                },
+                "emailVerificationTokenHash": {
+                  "column": "emailVerificationTokenHash"
+                },
+                "emailVerified": {
+                  "column": "emailVerified"
                 },
                 "id": {
                   "column": "id"
@@ -2412,6 +2442,25 @@
                   "nativeType": "text",
                   "nullable": false
                 },
+                "emailVerificationExpiresAt": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "nativeType": "timestamptz",
+                  "nullable": true
+                },
+                "emailVerificationTokenHash": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
+                "emailVerified": {
+                  "codecId": "pg/bool@1",
+                  "default": {
+                    "kind": "literal",
+                    "value": false
+                  },
+                  "nativeType": "bool",
+                  "nullable": false
+                },
                 "id": {
                   "codecId": "pg/int4@1",
                   "default": {
@@ -2463,6 +2512,11 @@
                   "columns": [
                     "email"
                   ]
+                },
+                {
+                  "columns": [
+                    "emailVerificationTokenHash"
+                  ]
                 }
               ]
             }
@@ -2472,7 +2526,7 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "cd5cd05947eac03742a043cc9b90f4bccf9c10b9b73f4bb2d0ed4f1dbdd3ac04"
+    "storageHash": "1bec55cc33fd7536e45362ebbda471873ad39afeb68d04bf3db5c41cdcd03212"
   },
   "execution": {
     "executionHash": "eb0aeb2becfb9c96897436f6ddd60b33d872d53452ae18f5e9eb1ae1f0d7d242",
