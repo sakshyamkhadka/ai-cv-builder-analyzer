@@ -11,6 +11,9 @@ import ForgotPassword from './pages/auth/ForgotPassword'
 import ResetPassword from './pages/auth/ResetPassword'
 import Dashboard from './pages/dashboard/Dashboard'
 import ProtectedRoute from './routes/ProtectedRoute'
+import CreateCV from './pages/cv/CreateCV'
+import EditCV from './pages/cv/EditCV'
+
 
 const App = () => {
   return (
@@ -45,6 +48,22 @@ const App = () => {
   element={
     <ProtectedRoute>
       <Dashboard />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/cv/:id"
+  element={
+    <ProtectedRoute>
+      <EditCV />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/cv/new"
+  element={
+    <ProtectedRoute>
+      <CreateCV />
     </ProtectedRoute>
   }
 />

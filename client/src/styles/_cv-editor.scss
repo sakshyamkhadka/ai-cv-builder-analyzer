@@ -1,0 +1,234 @@
+@use 'variables' as *;
+
+.cv-editor-page {
+  min-height: 100vh;
+  padding: 2rem;
+  background: $color-background;
+}
+
+.cv-editor-header {
+  max-width: $container-width;
+  margin: 0 auto 2rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+
+  p {
+    margin: 0 0 0.35rem;
+    color: $color-primary;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  h1 {
+    margin: 0;
+    color: $color-text;
+    font-size: 2rem;
+  }
+
+  a {
+    color: $color-primary;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.cv-editor-card {
+  max-width: $container-width;
+  margin: 0 auto;
+  padding: 2rem;
+  background: $color-white;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.cv-create-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.cv-editor-sections {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.editor-section {
+  padding-top: 2rem;
+  border-top: 1px solid $color-border;
+}
+
+.editor-section-header {
+  margin-bottom: 1.25rem;
+
+  h2 {
+    margin: 0 0 0.35rem;
+    color: $color-text;
+    font-size: 1.35rem;
+  }
+
+  p {
+    margin: 0;
+    color: $color-text-light;
+  }
+}
+
+.editor-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.editor-form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.editor-form-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+
+  button {
+    width: auto;
+    min-width: 140px;
+  }
+}
+
+.editor-list {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+
+  > p {
+    margin: 0;
+    color: $color-text-light;
+  }
+}
+
+.editor-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  background: #fcfcfd;
+
+  h3 {
+    margin: 0 0 0.35rem;
+    color: $color-text;
+    font-size: 1rem;
+  }
+
+  p {
+    margin: 0.25rem 0;
+    color: $color-text-light;
+    line-height: 1.5;
+  }
+
+  a {
+    color: $color-primary;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.editor-item-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+
+  button {
+    width: auto;
+    padding: 0.55rem 0.8rem;
+  }
+}
+
+.template-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(220px, 1fr)
+  );
+  gap: 1rem;
+}
+
+.template-option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  background: $color-white;
+  color: $color-text;
+  text-align: left;
+  cursor: pointer;
+
+  strong {
+    font-size: 1rem;
+  }
+
+  span {
+    color: $color-text-light;
+    line-height: 1.45;
+  }
+
+  &:hover {
+    border-color: $color-primary;
+  }
+
+  &.active {
+    border: 2px solid $color-primary;
+    background: rgba(108, 99, 255, 0.05);
+  }
+}
+
+@media (max-width: 700px) {
+  .cv-editor-page {
+    padding: 1rem;
+  }
+
+  .cv-editor-card {
+    padding: 1.25rem;
+  }
+
+  .cv-editor-header {
+    flex-direction: column;
+  }
+
+  .editor-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .editor-item {
+    flex-direction: column;
+  }
+
+  .editor-item-actions {
+    width: 100%;
+
+    button {
+      flex: 1;
+    }
+  }
+}

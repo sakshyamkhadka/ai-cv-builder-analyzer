@@ -20,11 +20,24 @@ const Login = () => {
     event.preventDefault()
 
     setError('')
+
+    const normalizedEmail = email.trim()
+
+    if (!normalizedEmail) {
+      setError('Email address is required')
+      return
+    }
+
+    if (!password) {
+      setError('Password is required')
+      return
+    }
+
     setIsLoading(true)
 
     try {
       await login({
-        email,
+        email: normalizedEmail,
         password
       })
 
@@ -45,6 +58,7 @@ const Login = () => {
       <section className="auth-card">
         <div className="auth-header">
           <h1>Welcome back</h1>
+
           <p>
             Sign in to continue building your CV.
           </p>
@@ -67,6 +81,8 @@ const Login = () => {
                 setEmail(event.target.value)
               }
               placeholder="you@example.com"
+              maxLength={254}
+              autoComplete="email"
               required
             />
           </div>
@@ -84,6 +100,7 @@ const Login = () => {
                 setPassword(event.target.value)
               }
               placeholder="Enter your password"
+              autoComplete="current-password"
               required
             />
           </div>

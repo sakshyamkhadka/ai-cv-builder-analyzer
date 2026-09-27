@@ -2,9 +2,13 @@ import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+import { register } from '../../services/auth.service'
+
 import {
-  register
-} from '../../services/auth.service'
+  validateName,
+  validatePassword,
+  validatePhone
+} from '../../utils/validation'
 
 const Register = () => {
   const navigate = useNavigate()
@@ -26,6 +30,28 @@ const Register = () => {
 
     setError('')
 
+    const nameError = validateName(name)
+
+    if (nameError) {
+      setError(nameError)
+      return
+    }
+
+    const phoneError = validatePhone(phone)
+
+    if (phoneError) {
+      setError(phoneError)
+      return
+    }
+
+    const passwordError =
+      validatePassword(password)
+
+    if (passwordError) {
+      setError(passwordError)
+      return
+    }
+
     if (password !== confirmPassword) {
       setError('Passwords do not match')
       return
@@ -35,14 +61,16 @@ const Register = () => {
 
     try {
       await register({
-        name,
-        email,
+        name: name.trim(),
+        email: email.trim(),
         password,
-        phone: phone || undefined
+        phone: phone.trim() || undefined
       })
 
       navigate(
-        `/verify-email?email=${encodeURIComponent(email)}`
+        `/verify-email?email=${encodeURIComponent(
+          email.trim()
+        )}`
       )
     } catch (err) {
       setError(
@@ -60,6 +88,7 @@ const Register = () => {
       <section className="auth-card">
         <div className="auth-header">
           <h1>Create your account</h1>
+
           <p>
             Build and analyze professional CVs with
             AI-powered tools.
@@ -83,6 +112,8 @@ const Register = () => {
                 setName(event.target.value)
               }
               placeholder="Enter your full name"
+              maxLength={100}
+              autoComplete="name"
               required
             />
           </div>
@@ -100,6 +131,8 @@ const Register = () => {
                 setEmail(event.target.value)
               }
               placeholder="you@example.com"
+              maxLength={254}
+              autoComplete="email"
               required
             />
           </div>
@@ -116,7 +149,9 @@ const Register = () => {
               onChange={(event) =>
                 setPhone(event.target.value)
               }
-              placeholder="Optional"
+              placeholder="+9779812345678"
+              maxLength={16}
+              autoComplete="tel"
             />
           </div>
 
@@ -132,8 +167,10 @@ const Register = () => {
               onChange={(event) =>
                 setPassword(event.target.value)
               }
-              placeholder="Minimum 6 characters"
-              minLength={6}
+              placeholder="At least 8 characters"
+              minLength={8}
+              maxLength={100}
+              autoComplete="new-password"
               required
             />
           </div>
@@ -153,7 +190,9 @@ const Register = () => {
                 )
               }
               placeholder="Re-enter your password"
-              minLength={6}
+              minLength={8}
+              maxLength={100}
+              autoComplete="new-password"
               required
             />
           </div>
