@@ -1,29 +1,108 @@
 import { z } from 'zod'
 
-export const createEducationSchema = z.object({
-  institution: z
-    .string()
-    .min(1, 'Institution is required'),
+import {
+  optionalTextSchema,
+  yearSchema
+} from './common.validator.js'
 
-  degree: z
+const educationTextSchema = (
+  field: string,
+  max: number
+) =>
+  z
     .string()
-    .min(1, 'Degree is required'),
+    .trim()
+    .min(
+      2,
+      `${field} must be at least 2 characters`
+    )
+    .max(
+      max,
+      `${field} must be ${max} characters or less`
+    )
+    .regex(
+      /^[\p{L}\p{N}\s&.'’(),/-]+$/u,
+      `${field} contains invalid characters`
+    )
 
-  field: z
-    .string()
-    .optional(),
+const optionalStartDateSchema =
+  z.preprocess(
+    (value) =>
+      value === '' ||
+      value === null
+        ? undefined
+        : value,
+    yearSchema.optional()
+  )
 
-  startDate: z
-    .string()
-    .optional(),
+const optionalEndDateSchema =
+  z.preprocess(
+    (value) =>
+      value === '' ||
+      value === null
+        ? undefined
+        : value,
+    z
+      .union([
+        yearSchema,
+        z.literal('Present')
+      ])
+      .optional()
+  )
 
-  endDate: z
-    .string()
-    .optional(),
+const createEducationSchemaBase =
+  z.object({
+    institution: educationTextSchema(
+      'Institution',
+      200
+    ),
 
-  description: z
-    .string()
-    .optional()
-})
+    degree: educationTextSchema(
+      'Degree',
+      150
+    ),
 
-export const updateEducationSchema = createEducationSchema
+    field: z.preprocess(
+      (value) =>
+        value === '' ||
+        value === null
+          ? undefined
+          : value,
+      educationTextSchema(
+        'Field of study',
+        150
+      ).optional()
+    ),
+
+    startDate:
+      optionalStartDateSchema,
+
+    endDate:
+      optionalEndDateSchema,
+
+    description:
+      optionalTextSchema(1000)
+  })
+
+export const createEducationSchema =
+  createEducationSchemaBase.superRefine(
+    (data, ctx) => {
+      if (
+        data.startDate &&
+        data.endDate &&
+        data.endDate !== 'Present' &&
+        Number(data.endDate) <
+          Number(data.startDate)
+      ) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ['endDate'],
+          message:
+            'End year cannot be earlier than start year'
+        })
+      }
+    }
+  )
+
+export const updateEducationSchema =
+  createEducationSchema

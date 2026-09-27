@@ -83,11 +83,27 @@ export const register = async (c: Context) => {
       emailVerificationExpiresAt: verificationExpiresAt
     })
 
-    await sendVerificationEmail({
-      to: user.email,
-      name: user.name,
-      token: verificationToken
-    })
+    try {
+      await sendVerificationEmail({
+        to: user.email,
+        name: user.name,
+        token: verificationToken
+      })
+    } catch (emailError) {
+      console.error('Verification email failed:', emailError)
+
+      await db.orm.public.User
+        .where({ id: user.id })
+        .delete()
+
+      return c.json(
+        {
+          success: false,
+          message: 'Registration failed because the verification email could not be sent'
+        },
+        503
+      )
+    }
 
     return c.json(
       {
@@ -118,7 +134,6 @@ export const register = async (c: Context) => {
     )
   }
 }
-
 export const login = async (c: Context) => {
   try {
     const body = await c.req.json()

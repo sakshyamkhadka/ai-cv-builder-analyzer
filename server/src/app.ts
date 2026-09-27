@@ -16,6 +16,7 @@ import jobMatchRoutes from './routes/jobMatch.routes.js'
 import templateRoutes from './routes/template.routes.js'
 
 const app = new Hono()
+
 app.use(
   '/api/*',
   cors({
@@ -59,10 +60,21 @@ app.get('/api/db-test', async (c) => {
   try {
     const users = await db.orm.public.User.all()
 
+    const safeUsers = users.map((user) => ({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      role: user.role,
+      emailVerified: user.emailVerified,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt
+    }))
+
     return c.json({
       success: true,
       message: 'Database connected successfully',
-      users
+      users: safeUsers
     })
   } catch (error) {
     console.error('Database error:', error)

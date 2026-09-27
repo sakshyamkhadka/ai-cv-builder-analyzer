@@ -1,25 +1,86 @@
 import { z } from 'zod'
 
-export const createExperienceSchema = z.object({
-    company: z
-        .string()
-        .min(1, 'Company is required'),
+import {
+  optionalTextSchema,
+  shortTextSchema,
+  yearSchema
+} from './common.validator.js'
 
-    position: z
-        .string()
-        .min(1, 'Position is required'),
+const experienceTextSchema = (
+  field: string,
+  max: number
+) =>
+  z
+    .string()
+    .trim()
+    .min(
+      2,
+      `${field} must be at least 2 characters`
+    )
+    .max(
+      max,
+      `${field} must be ${max} characters or less`
+    )
+    .regex(
+      /^[\p{L}\p{N}\s&.'’(),/@#&+_-]+$/u,
+      `${field} contains invalid characters`
+    )
 
-    startDate: z
-        .string()
-        .optional(),
+const optionalYearSchema = z.preprocess(
+  (value) =>
+    value === '' || value === null
+      ? undefined
+      : value,
+  yearSchema.optional()
+)
 
-    endDate: z
-        .string()
-        .optional(),
+const createExperienceSchemaBase =
+  z.object({
+    company: experienceTextSchema(
+      'Company',
+      200
+    ),
 
-    description: z
-        .string()
-        .optional()
-})
+    position: experienceTextSchema(
+      'Position',
+      150
+    ),
 
-export const updateExperienceSchema = createExperienceSchema
+    startDate: optionalYearSchema,
+
+    endDate: z.preprocess(
+      (value) =>
+        value === '' || value === null
+          ? undefined
+          : value,
+      z.union([
+        yearSchema,
+        z.literal('Present')
+      ]).optional()
+    ),
+
+    description: optionalTextSchema(1500)
+  })
+
+export const createExperienceSchema =
+  createExperienceSchemaBase.superRefine(
+    (data, ctx) => {
+      if (
+        data.startDate &&
+        data.endDate &&
+        data.endDate !== 'Present' &&
+        Number(data.endDate) <
+          Number(data.startDate)
+      ) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ['endDate'],
+          message:
+            'End year cannot be earlier than start year'
+        })
+      }
+    }
+  )
+
+export const updateExperienceSchema =
+  createExperienceSchema

@@ -1,21 +1,74 @@
 import { z } from 'zod'
 
-export const createProjectSchema = z.object({
-  name: z
-    .string()
-    .min(1, 'Project name is required'),
+import {
+  optionalTextSchema,
+  optionalUrlSchema,
+  shortTextSchema
+} from './common.validator.js'
 
-  description: z
-    .string()
-    .optional(),
+const projectNameSchema = z
+  .string()
+  .trim()
+  .min(
+    2,
+    'Project name must be at least 2 characters'
+  )
+  .max(
+    150,
+    'Project name must be 150 characters or less'
+  )
+  .regex(
+    /^[\p{L}\p{N}\s&.'’(),:/#+_-]+$/u,
+    'Project name contains invalid characters'
+  )
 
-  technologies: z
-    .string()
-    .optional(),
+const technologiesSchema = z
+  .string()
+  .trim()
+  .min(
+    2,
+    'Technologies must be at least 2 characters'
+  )
+  .max(
+    500,
+    'Technologies must be 500 characters or less'
+  )
+  .regex(
+    /^[\p{L}\p{N}\s.,#+/&()'’:_-]+$/u,
+    'Technologies contains invalid characters'
+  )
+  .optional()
 
-  projectUrl: z
-    .string()
-    .optional()
-})
+const optionalTechnologiesSchema =
+  z.preprocess(
+    (value) =>
+      value === '' || value === null
+        ? undefined
+        : value,
+    technologiesSchema
+  )
 
-export const updateProjectSchema = createProjectSchema
+const optionalProjectUrlSchema =
+  z.preprocess(
+    (value) =>
+      value === '' || value === null
+        ? undefined
+        : value,
+    optionalUrlSchema
+  )
+
+export const createProjectSchema =
+  z.object({
+    name: projectNameSchema,
+
+    description: optionalTextSchema(1500),
+
+    technologies:
+      optionalTechnologiesSchema,
+
+    projectUrl:
+      optionalProjectUrlSchema
+  })
+
+export const updateProjectSchema =
+  createProjectSchema

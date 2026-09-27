@@ -1,30 +1,38 @@
 import { z } from 'zod'
 
+import {
+  optionalTextSchema,
+  shortTextSchema
+} from './common.validator.js'
+
+const templateIdSchema = z
+  .number()
+  .int('Template ID must be an integer')
+  .positive('Template ID must be a positive number')
+
+const summarySchema = optionalTextSchema(2000)
+
 export const createCVSchema = z.object({
-  title: z
-    .string()
-    .min(1, 'CV title is required'),
+  title: shortTextSchema(
+    'CV title',
+    2,
+    150
+  ),
 
-  templateId: z
-    .number()
-    .int()
-    .positive('Template ID must be a positive number'),
+  templateId: templateIdSchema,
 
-  summary: z
-    .string()
-    .optional()
+  summary: summarySchema
 })
-export const updateCVSchema = z.object({
-  title: z
-    .string()
-    .min(1, 'CV title is required'),
 
-  templateId: z
-    .number()
-    .int()
-    .positive('Template ID must be a positive number'),
+export const updateCVSchema =
+  z.object({
+    title: shortTextSchema(
+      'CV title',
+      2,
+      150
+    ),
 
-  summary: z
-    .string()
-    .optional()
-})
+    templateId: templateIdSchema,
+
+    summary: summarySchema
+  })

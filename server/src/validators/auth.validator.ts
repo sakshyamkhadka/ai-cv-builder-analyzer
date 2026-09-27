@@ -1,63 +1,93 @@
-import { z } from 'zod'
+  import { z } from 'zod'
 
-export const registerSchema = z.object({
-  name: z
-    .string()
-    .min(2, 'Name must be at least 2 characters'),
+  import {
+    personNameSchema,
+    phoneSchema
+  } from './common.validator.js'
 
-  email: z
+  const passwordSchema = z
     .string()
-    .email('Invalid email address'),
+    .min(
+      8,
+      'Password must be at least 8 characters'
+    )
+    .max(
+      100,
+      'Password must be 100 characters or less'
+    )
+    .regex(
+      /^(?=.*[A-Za-z])(?=.*\d).+$/,
+      'Password must contain at least one letter and one number'
+    )
 
-  password: z
+  const emailSchema = z
     .string()
-    .min(6, 'Password must be at least 6 characters'),
-
-  phone: z
-    .string()
-    .optional()
-})
-
-export const loginSchema = z.object({
-  email: z
-    .string()
-    .email('Invalid email address'),
-
-  password: z
-    .string()
-    .min(1, 'Password is required')
-})
-
-export const updateProfileSchema = z.object({
-  name: z
-    .string()
-    .min(2, 'Name must be at least 2 characters'),
-
-  phone: z
-    .string()
-    .optional()
-})
-export const resendVerificationSchema = z.object({
-  email: z
-    .string()
-    .email('Invalid email address')
     .trim()
     .toLowerCase()
-})
-export const forgotPasswordSchema = z.object({
-  email: z
-    .string()
     .email('Invalid email address')
-    .trim()
-    .toLowerCase()
-})
+    .max(
+      254,
+      'Email address is too long'
+    )
 
-export const resetPasswordSchema = z.object({
-  token: z
-    .string()
-    .min(1, 'Reset token is required'),
+  const optionalPhoneSchema = z.preprocess(
+    (value) =>
+      value === '' ||
+      value === null
+        ? undefined
+        : value,
+    phoneSchema.optional()
+  )
 
-  password: z
-    .string()
-    .min(6, 'Password must be at least 6 characters')
-})
+  export const registerSchema =
+    z.object({
+      name: personNameSchema,
+
+      email: emailSchema,
+
+      password: passwordSchema,
+
+      phone: optionalPhoneSchema
+    })
+
+  export const loginSchema =
+    z.object({
+      email: emailSchema,
+
+      password: z
+        .string()
+        .min(
+          1,
+          'Password is required'
+        )
+    })
+
+  export const updateProfileSchema =
+    z.object({
+      name: personNameSchema,
+
+      phone: optionalPhoneSchema
+    })
+
+  export const resendVerificationSchema =
+    z.object({
+      email: emailSchema
+    })
+
+  export const forgotPasswordSchema =
+    z.object({
+      email: emailSchema
+    })
+
+  export const resetPasswordSchema =
+    z.object({
+      token: z
+        .string()
+        .trim()
+        .min(
+          1,
+          'Reset token is required'
+        ),
+
+      password: passwordSchema
+    })
