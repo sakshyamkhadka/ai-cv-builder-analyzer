@@ -101,3 +101,15 @@ export const resetPassword = (
     }
   )
 }
+export const getMe = (
+  token: string
+) => {
+  return api<AuthResponse>(
+    '/auth/me',
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  )
+}

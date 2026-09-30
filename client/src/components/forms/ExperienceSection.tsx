@@ -7,8 +7,13 @@ import type { FormEvent } from 'react'
 
 import {
   generalNameRegex,
-  validateYear
+  validateRequiredText,
+  validateRequiredYear
 } from '../../utils/validation'
+
+import {
+  validateMeaningfulText
+} from '../../utils/meaningfulText'
 
 import {
   createExperience,
@@ -21,6 +26,7 @@ import {
 interface ExperienceSectionProps {
   token: string
   cvId: number
+  onChange?: () => void
 }
 
 interface ExperienceForm {
@@ -41,7 +47,8 @@ const emptyForm: ExperienceForm = {
 
 const ExperienceSection = ({
   token,
-  cvId
+  cvId,
+  onChange
 }: ExperienceSectionProps) => {
   const [experiences, setExperiences] =
     useState<Experience[]>([])
@@ -68,7 +75,10 @@ const ExperienceSection = ({
 
       try {
         const response =
-          await getExperiences(token, cvId)
+          await getExperiences(
+            token,
+            cvId
+          )
 
         setExperiences(
           response.experiences
@@ -105,6 +115,35 @@ const ExperienceSection = ({
     setEditingId(null)
   }
 
+  const validateExperienceText = (
+    value: string,
+    fieldName: string,
+    maxLength: number
+  ) => {
+    const text = value.trim()
+
+    const requiredError =
+      validateRequiredText(
+        text,
+        fieldName,
+        2,
+        maxLength
+      )
+
+    if (requiredError) {
+      return requiredError
+    }
+
+    if (!generalNameRegex.test(text)) {
+      return `${fieldName} contains invalid characters`
+    }
+
+    return validateMeaningfulText(
+      text,
+      fieldName
+    )
+  }
+
   const handleSubmit = async (
     event: FormEvent<HTMLFormElement>
   ) => {
@@ -112,91 +151,89 @@ const ExperienceSection = ({
 
     setError('')
 
-    const company = form.company.trim()
-    const position = form.position.trim()
-    const startDate = form.startDate.trim()
-    const endDate = form.endDate.trim()
+    const company =
+      form.company.trim()
+
+    const position =
+      form.position.trim()
+
+    const startDate =
+      form.startDate.trim()
+
+    const endDate =
+      form.endDate.trim()
+
     const description =
       form.description.trim()
 
-    if (company.length < 2) {
-      setError(
-        'Company must be at least 2 characters'
+    const companyError =
+      validateExperienceText(
+        company,
+        'Company',
+        200
       )
+
+    if (companyError) {
+      setError(companyError)
       return
     }
 
-    if (company.length > 200) {
-      setError(
-        'Company must be 200 characters or less'
+    const positionError =
+      validateExperienceText(
+        position,
+        'Position',
+        150
       )
-      return
-    }
 
-    if (!generalNameRegex.test(company)) {
-      setError(
-        'Company contains invalid characters'
-      )
-      return
-    }
-
-    if (position.length < 2) {
-      setError(
-        'Position must be at least 2 characters'
-      )
-      return
-    }
-
-    if (position.length > 150) {
-      setError(
-        'Position must be 150 characters or less'
-      )
-      return
-    }
-
-    if (!generalNameRegex.test(position)) {
-      setError(
-        'Position contains invalid characters'
-      )
+    if (positionError) {
+      setError(positionError)
       return
     }
 
     const startDateError =
-      validateYear(startDate)
+      validateRequiredYear(
+        startDate,
+        'Start Year'
+      )
 
     if (startDateError) {
+      setError(startDateError)
+      return
+    }
+
+    if (!endDate) {
       setError(
-        `Start Date: ${startDateError}`
+        'End Year is required. Enter a year or Present.'
       )
       return
     }
 
-    if (
-      endDate &&
-      endDate !== 'Present'
-    ) {
+    const isPresent =
+      endDate.toLowerCase() === 'present'
+
+    if (!isPresent) {
       const endDateError =
-        validateYear(endDate)
+        validateRequiredYear(
+          endDate,
+          'End Year'
+        )
 
       if (endDateError) {
         setError(
-          `End Date: ${endDateError}`
+          `${endDateError}. You can also enter Present.`
         )
         return
       }
-    }
 
-    if (
-      startDate &&
-      endDate &&
-      endDate !== 'Present' &&
-      Number(endDate) <
+      if (
+        Number(endDate) <
         Number(startDate)
-    ) {
-      setError(
-        'End year cannot be earlier than start year'
-      )
-      return
+      ) {
+        setError(
+          'End year cannot be earlier than start year'
+        )
+        return
+      }
     }
 
     if (description.length > 1500) {
@@ -212,10 +249,8 @@ const ExperienceSection = ({
       const data = {
         company,
         position,
-        startDate:
-          startDate || undefined,
-        endDate:
-          endDate || undefined,
+        startDate,
+        endDate,
         description:
           description || undefined
       }
@@ -236,7 +271,10 @@ const ExperienceSection = ({
       }
 
       resetForm()
+
       await loadExperiences()
+
+      onChange?.()
     } catch (err) {
       setError(
         err instanceof Error
@@ -263,14 +301,17 @@ const ExperienceSection = ({
       description:
         experience.description ?? ''
     })
+
+    setError('')
   }
 
   const handleDelete = async (
     experienceId: number
   ) => {
-    const confirmed = window.confirm(
-      'Delete this experience entry?'
-    )
+    const confirmed =
+      window.confirm(
+        'Delete this experience entry?'
+      )
 
     if (!confirmed) {
       return
@@ -285,11 +326,15 @@ const ExperienceSection = ({
         experienceId
       )
 
-      if (editingId === experienceId) {
+      if (
+        editingId === experienceId
+      ) {
         resetForm()
       }
 
       await loadExperiences()
+
+      onChange?.()
     } catch (err) {
       setError(
         err instanceof Error
@@ -300,7 +345,7 @@ const ExperienceSection = ({
   }
 
   return (
-    <section className="editor-section">
+    <section className="editor-section experience-editor">
       <div className="editor-section-header">
         <div>
           <h2>Experience</h2>
@@ -384,6 +429,7 @@ const ExperienceSection = ({
               placeholder="e.g. 2025"
               maxLength={4}
               inputMode="numeric"
+              required
             />
           </div>
 
@@ -404,6 +450,7 @@ const ExperienceSection = ({
               }
               placeholder="e.g. 2026 or Present"
               maxLength={7}
+              required
             />
           </div>
         </div>
@@ -454,7 +501,9 @@ const ExperienceSection = ({
 
       <div className="editor-list">
         {isLoading && (
-          <p>Loading experience...</p>
+          <p>
+            Loading experience...
+          </p>
         )}
 
         {!isLoading &&
@@ -502,7 +551,9 @@ const ExperienceSection = ({
                 <button
                   type="button"
                   onClick={() =>
-                    handleEdit(experience)
+                    handleEdit(
+                      experience
+                    )
                   }
                 >
                   Edit

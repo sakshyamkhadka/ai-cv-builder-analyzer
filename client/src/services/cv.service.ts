@@ -4,6 +4,9 @@ export interface CV {
   id: number
   userId: number
   title: string
+  fullName: string | null
+  email: string | null
+  phone: string | null
   templateId: number
   summary: string | null
   createdAt: string
@@ -33,6 +36,9 @@ export const createCV = (
   token: string,
   data: {
     title: string
+    fullName?: string
+    email?: string
+    phone?: string
     templateId: number
     summary?: string
   }
@@ -59,6 +65,9 @@ export const updateCV = (
   id: number,
   data: {
     title: string
+    fullName?: string
+    email?: string
+    phone?: string
     templateId: number
     summary?: string
   }

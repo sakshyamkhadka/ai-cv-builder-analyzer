@@ -2,7 +2,6 @@ import { z } from 'zod'
 
 import {
   optionalTextSchema,
-  shortTextSchema,
   yearSchema
 } from './common.validator.js'
 
@@ -22,16 +21,27 @@ const experienceTextSchema = (
       `${field} must be ${max} characters or less`
     )
     .regex(
-      /^[\p{L}\p{N}\s&.'’(),/@#&+_-]+$/u,
+      /^[\p{L}\p{N}\s&.'’(),/@#+_-]+$/u,
       `${field} contains invalid characters`
     )
 
-const optionalYearSchema = z.preprocess(
+const requiredYearSchema = z.preprocess(
   (value) =>
     value === '' || value === null
       ? undefined
       : value,
-  yearSchema.optional()
+  yearSchema
+)
+
+const endDateSchema = z.preprocess(
+  (value) =>
+    value === '' || value === null
+      ? undefined
+      : value,
+  z.union([
+    yearSchema,
+    z.literal('Present')
+  ])
 )
 
 const createExperienceSchemaBase =
@@ -46,18 +56,9 @@ const createExperienceSchemaBase =
       150
     ),
 
-    startDate: optionalYearSchema,
+    startDate: requiredYearSchema,
 
-    endDate: z.preprocess(
-      (value) =>
-        value === '' || value === null
-          ? undefined
-          : value,
-      z.union([
-        yearSchema,
-        z.literal('Present')
-      ]).optional()
-    ),
+    endDate: endDateSchema,
 
     description: optionalTextSchema(1500)
   })
@@ -66,8 +67,6 @@ export const createExperienceSchema =
   createExperienceSchemaBase.superRefine(
     (data, ctx) => {
       if (
-        data.startDate &&
-        data.endDate &&
         data.endDate !== 'Present' &&
         Number(data.endDate) <
           Number(data.startDate)

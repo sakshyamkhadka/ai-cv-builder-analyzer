@@ -12,28 +12,31 @@ const skillNameSchema = z
     'Skill name must be 100 characters or less'
   )
   .regex(
-    /^[\p{L}\p{N}][\p{L}\p{N}\s+#.()/&,'’+\-]*$/u,
+    /^[\p{L}\p{N}][\p{L}\p{N}\s+#.()/&,'’+_-]*$/u,
     'Skill name contains invalid characters'
   )
 
-const skillLevelSchema = z.preprocess(
-  (value) =>
-    value === '' || value === null
-      ? undefined
-      : value,
-  z.enum([
-    'Beginner',
-    'Intermediate',
-    'Advanced',
-    'Expert'
-  ]).optional()
-)
+const requiredSkillLevelSchema =
+  z.preprocess(
+    (value) =>
+      value === '' || value === null
+        ? undefined
+        : value,
+    z.enum([
+      'Beginner',
+      'Intermediate',
+      'Advanced',
+      'Expert'
+    ])
+  )
 
-export const createSkillSchema = z.object({
-  name: skillNameSchema,
+export const createSkillSchema =
+  z.object({
+    name: skillNameSchema,
 
-  level: skillLevelSchema
-})
+    level:
+      requiredSkillLevelSchema
+  })
 
 export const updateSkillSchema =
-  createSkillSchema 
+  createSkillSchema

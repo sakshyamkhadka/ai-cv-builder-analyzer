@@ -26,7 +26,14 @@ export const createCV = async (c: Context) => {
       )
     }
 
-    const { title, templateId, summary } = result.data
+    const {
+      title,
+      fullName,
+      email,
+      phone,
+      templateId,
+      summary
+    } = result.data
 
     const template = await db.orm.public.Template
       .where({ id: templateId })
@@ -45,6 +52,9 @@ export const createCV = async (c: Context) => {
     const cv = await db.orm.public.CV.create({
       userId,
       title,
+      fullName: fullName || null,
+      email: email || null,
+      phone: phone || null,
       templateId,
       summary: summary ?? null
     })
@@ -176,7 +186,14 @@ export const updateCV = async (c: Context) => {
       )
     }
 
-    const { title, templateId, summary } = result.data
+    const {
+      title,
+      fullName,
+      email,
+      phone,
+      templateId,
+      summary
+    } = result.data
 
     const template = await db.orm.public.Template
       .where({ id: templateId })
@@ -199,6 +216,9 @@ export const updateCV = async (c: Context) => {
       })
       .update({
         title,
+        fullName: fullName || null,
+        email: email || null,
+        phone: phone || null,
         templateId,
         summary: summary ?? null
       })

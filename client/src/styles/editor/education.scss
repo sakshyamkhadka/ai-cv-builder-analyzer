@@ -1,0 +1,445 @@
+@use '../variables' as *;
+
+/* =========================================
+   EDUCATION EDITOR
+   ========================================= */
+
+.education-editor {
+    width: 100%;
+    padding: 24px;
+
+    background: $color-white;
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+
+    box-shadow:
+        0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.education-editor .editor-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    margin-bottom: 24px;
+}
+
+.education-editor .editor-section-header h2 {
+    margin: 0;
+
+    color: $color-text;
+    font-family: $font-family;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.education-editor .editor-section-header p {
+    margin: 6px 0 0;
+
+    color: $color-text-light;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* =========================================
+   ERROR
+   ========================================= */
+
+.education-editor .auth-error {
+    margin: 0 0 18px;
+    padding: 10px 12px;
+
+    border: 1px solid rgba(220, 38, 38, 0.18);
+    border-radius: $radius-md;
+
+    background: rgba(220, 38, 38, 0.06);
+    color: #b42318;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* =========================================
+   FORM
+   ========================================= */
+
+.education-editor .editor-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    padding: 20px;
+
+    background: #f9fafb;
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+}
+
+/* =========================================
+   FORM GROUP
+   ========================================= */
+
+.education-editor .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.education-editor .form-group label {
+    color: $color-text;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.education-editor .form-group input,
+.education-editor .form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 11px 13px;
+
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+
+    background: $color-white;
+    color: $color-text;
+
+    font-family: $font-family;
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.education-editor .form-group input {
+    height: 42px;
+}
+
+.education-editor .form-group textarea {
+    min-height: 100px;
+
+    resize: vertical;
+
+    line-height: 1.5;
+}
+
+.education-editor .form-group input::placeholder,
+.education-editor .form-group textarea::placeholder {
+    color: #98a2b3;
+}
+
+.education-editor .form-group input:hover,
+.education-editor .form-group textarea:hover {
+    border-color: #b8c0cc;
+}
+
+.education-editor .form-group input:focus,
+.education-editor .form-group textarea:focus {
+    border-color: $color-primary;
+
+    box-shadow:
+        0 0 0 3px rgba(108, 99, 255, 0.12);
+}
+
+/* =========================================
+   TWO COLUMN ROW
+   ========================================= */
+
+.education-editor .editor-form-row {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 16px;
+}
+
+/* =========================================
+   FORM ACTIONS
+   ========================================= */
+
+.education-editor .editor-form-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding-top: 4px;
+}
+
+.education-editor .editor-form-actions button {
+    min-height: 40px;
+
+    padding: 0 16px;
+
+    border: 1px solid transparent;
+    border-radius: $radius-md;
+
+    font-family: $font-family;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.15s ease;
+}
+
+/* ADD / UPDATE */
+
+.education-editor .editor-form-actions button[type='submit'] {
+    background: $color-primary;
+    border-color: $color-primary;
+
+    color: $color-white;
+
+    box-shadow:
+        0 2px 4px rgba(108, 99, 255, 0.16);
+}
+
+.education-editor
+    .editor-form-actions
+    button[type='submit']:hover:not(:disabled) {
+    background: $color-primary-dark;
+    border-color: $color-primary-dark;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 8px rgba(108, 99, 255, 0.20);
+}
+
+/* CANCEL */
+
+.education-editor .editor-form-actions button[type='button'] {
+    background: $color-white;
+    border-color: $color-border;
+
+    color: $color-text;
+}
+
+.education-editor
+    .editor-form-actions
+    button[type='button']:hover:not(:disabled) {
+    background: #f3f4f6;
+    border-color: #b8c0cc;
+}
+
+/* DISABLED */
+
+.education-editor .editor-form-actions button:disabled {
+    opacity: 0.6;
+
+    cursor: wait;
+
+    transform: none;
+}
+
+/* =========================================
+   SAVED EDUCATION LIST
+   ========================================= */
+
+.education-editor .editor-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+
+    margin-top: 24px;
+}
+
+.education-editor .editor-list > p {
+    margin: 0;
+
+    padding: 20px;
+
+    border: 1px dashed $color-border;
+    border-radius: $radius-md;
+
+    color: $color-text-light;
+
+    font-size: 14px;
+
+    text-align: center;
+}
+
+/* =========================================
+   EDUCATION CARD
+   ========================================= */
+
+.education-editor .editor-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 20px;
+
+    padding: 18px;
+
+    background: $color-white;
+
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.15s ease;
+}
+
+.education-editor .editor-item:hover {
+    border-color: #c7ccd5;
+
+    box-shadow:
+        0 3px 10px rgba(16, 24, 40, 0.06);
+
+    transform: translateY(-1px);
+}
+
+.education-editor .editor-item > div:first-child {
+    min-width: 0;
+
+    flex: 1;
+}
+
+/* =========================================
+   EDUCATION TEXT
+   ========================================= */
+
+.education-editor .editor-item h3 {
+    margin: 0 0 7px;
+
+    color: $color-text;
+
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.education-editor .editor-item p {
+    margin: 4px 0;
+
+    color: $color-text-light;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    overflow-wrap: anywhere;
+}
+
+.education-editor .editor-item p:first-of-type {
+    color: $color-text;
+
+    font-weight: 500;
+}
+
+/* =========================================
+   EDIT / DELETE
+   ========================================= */
+
+.education-editor .editor-item-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    flex-shrink: 0;
+}
+
+.education-editor .editor-item-actions button {
+    min-width: 64px;
+
+    height: 34px;
+
+    padding: 0 11px;
+
+    border-radius: $radius-md;
+
+    font-family: $font-family;
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+/* EDIT */
+
+.education-editor .editor-item-actions button:first-child {
+    background: rgba(108, 99, 255, 0.08);
+
+    border: 1px solid rgba(108, 99, 255, 0.18);
+
+    color: $color-primary;
+}
+
+.education-editor .editor-item-actions button:first-child:hover {
+    background: rgba(108, 99, 255, 0.14);
+
+    border-color: rgba(108, 99, 255, 0.28);
+}
+
+/* DELETE */
+
+.education-editor .editor-item-actions button:last-child {
+    background: rgba(220, 38, 38, 0.06);
+
+    border: 1px solid rgba(220, 38, 38, 0.16);
+
+    color: #b42318;
+}
+
+.education-editor .editor-item-actions button:last-child:hover {
+    background: rgba(220, 38, 38, 0.11);
+
+    border-color: rgba(220, 38, 38, 0.25);
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 700px) {
+    .education-editor {
+        padding: 18px;
+    }
+
+    .education-editor .editor-form {
+        padding: 16px;
+    }
+
+    .education-editor .editor-form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .education-editor .editor-item {
+        flex-direction: column;
+    }
+
+    .education-editor .editor-item-actions {
+        width: 100%;
+    }
+
+    .education-editor .editor-item-actions button {
+        flex: 1;
+    }
+
+    .education-editor .editor-form-actions {
+        flex-wrap: wrap;
+    }
+}

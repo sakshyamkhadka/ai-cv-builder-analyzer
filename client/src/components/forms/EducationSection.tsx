@@ -12,14 +12,21 @@ import {
   updateEducation,
   type Education
 } from '../../services/education.service'
+
 import {
   generalNameRegex,
-  validateYear
+  validateRequiredText,
+  validateRequiredYear
 } from '../../utils/validation'
+
+import {
+  validateMeaningfulText
+} from '../../utils/meaningfulText'
 
 interface EducationSectionProps {
   token: string
   cvId: number
+  onChange?: () => void
 }
 
 interface EducationForm {
@@ -42,7 +49,8 @@ const emptyForm: EducationForm = {
 
 const EducationSection = ({
   token,
-  cvId
+  cvId,
+  onChange
 }: EducationSectionProps) => {
   const [education, setEducation] =
     useState<Education[]>([])
@@ -102,163 +110,193 @@ const EducationSection = ({
     setForm(emptyForm)
     setEditingId(null)
   }
-const handleSubmit = async (
-  event: FormEvent<HTMLFormElement>
-) => {
-  event.preventDefault()
 
-  setError('')
+  const validateEducationText = (
+    value: string,
+    fieldName: string,
+    maxLength: number
+  ) => {
+    const text = value.trim()
 
-  const institution = form.institution.trim()
-  const degree = form.degree.trim()
-  const field = form.field.trim()
-  const startDate = form.startDate.trim()
-  const endDate = form.endDate.trim()
-  const description = form.description.trim()
+    const requiredError =
+      validateRequiredText(
+        text,
+        fieldName,
+        2,
+        maxLength
+      )
 
-  if (institution.length < 2) {
-    setError(
-      'Institution must be at least 2 characters'
+    if (requiredError) {
+      return requiredError
+    }
+
+    if (!generalNameRegex.test(text)) {
+      return `${fieldName} contains invalid characters`
+    }
+
+    return validateMeaningfulText(
+      text,
+      fieldName
     )
-    return
   }
 
-  if (institution.length > 200) {
-    setError(
-      'Institution must be 200 characters or less'
-    )
-    return
-  }
+  const handleSubmit = async (
+    event: FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault()
 
-  if (!generalNameRegex.test(institution)) {
-    setError(
-      'Institution contains invalid characters'
-    )
-    return
-  }
+    setError('')
 
-  if (degree.length < 2) {
-    setError(
-      'Degree must be at least 2 characters'
-    )
-    return
-  }
+    const institution =
+      form.institution.trim()
 
-  if (degree.length > 150) {
-    setError(
-      'Degree must be 150 characters or less'
-    )
-    return
-  }
+    const degree =
+      form.degree.trim()
 
-  if (!generalNameRegex.test(degree)) {
-    setError(
-      'Degree contains invalid characters'
-    )
-    return
-  }
+    const field =
+      form.field.trim()
 
-  if (field) {
-    if (field.length < 2) {
+    const startDate =
+      form.startDate.trim()
+
+    const endDate =
+      form.endDate.trim()
+
+    const description =
+      form.description.trim()
+
+    const institutionError =
+      validateEducationText(
+        institution,
+        'Institution',
+        200
+      )
+
+    if (institutionError) {
+      setError(institutionError)
+      return
+    }
+
+    const degreeError =
+      validateEducationText(
+        degree,
+        'Degree',
+        150
+      )
+
+    if (degreeError) {
+      setError(degreeError)
+      return
+    }
+
+    const fieldError =
+      validateEducationText(
+        field,
+        'Field of study',
+        150
+      )
+
+    if (fieldError) {
+      setError(fieldError)
+      return
+    }
+
+    const startDateError =
+      validateRequiredYear(
+        startDate,
+        'Start Date'
+      )
+
+    if (startDateError) {
+      setError(startDateError)
+      return
+    }
+
+    if (!endDate) {
       setError(
-        'Field of study must be at least 2 characters'
+        'End Date is required. Enter a year or Present.'
       )
       return
     }
 
-    if (field.length > 150) {
+    const isPresent =
+      endDate.toLowerCase() === 'present'
+
+    if (!isPresent) {
+      const endDateError =
+        validateRequiredYear(
+          endDate,
+          'End Date'
+        )
+
+      if (endDateError) {
+        setError(
+          `${endDateError}. You can also enter Present.`
+        )
+        return
+      }
+
+      if (
+        Number(endDate) <
+        Number(startDate)
+      ) {
+        setError(
+          'End year cannot be earlier than start year'
+        )
+        return
+      }
+    }
+
+    if (description.length > 1000) {
       setError(
-        'Field of study must be 150 characters or less'
+        'Description must be 1000 characters or less'
       )
       return
     }
 
-    if (!generalNameRegex.test(field)) {
+    setIsSaving(true)
+
+    try {
+      const data = {
+        institution,
+        degree,
+        field,
+        startDate,
+        endDate,
+        description:
+          description || undefined
+      }
+
+      if (editingId) {
+        await updateEducation(
+          token,
+          cvId,
+          editingId,
+          data
+        )
+      } else {
+        await createEducation(
+          token,
+          cvId,
+          data
+        )
+      }
+
+      resetForm()
+
+      await loadEducation()
+
+      onChange?.()
+    } catch (err) {
       setError(
-        'Field of study contains invalid characters'
+        err instanceof Error
+          ? err.message
+          : 'Failed to save education'
       )
-      return
+    } finally {
+      setIsSaving(false)
     }
   }
-
-  const startDateError =
-    validateYear(startDate)
-
-  if (startDateError) {
-    setError(
-      `Start Date: ${startDateError}`
-    )
-    return
-  }
-
-  const endDateError =
-    validateYear(endDate)
-
-  if (endDateError) {
-    setError(
-      `End Date: ${endDateError}`
-    )
-    return
-  }
-
-  if (
-    startDate &&
-    endDate &&
-    Number(endDate) < Number(startDate)
-  ) {
-    setError(
-      'End year cannot be earlier than start year'
-    )
-    return
-  }
-
-  if (description.length > 1000) {
-    setError(
-      'Description must be 1000 characters or less'
-    )
-    return
-  }
-
-  setIsSaving(true)
-
-  try {
-    const data = {
-      institution,
-      degree,
-      field: field || undefined,
-      startDate: startDate || undefined,
-      endDate: endDate || undefined,
-      description:
-        description || undefined
-    }
-
-    if (editingId) {
-      await updateEducation(
-        token,
-        cvId,
-        editingId,
-        data
-      )
-    } else {
-      await createEducation(
-        token,
-        cvId,
-        data
-      )
-    }
-
-    resetForm()
-    await loadEducation()
-  } catch (err) {
-    setError(
-      err instanceof Error
-        ? err.message
-        : 'Failed to save education'
-    )
-  } finally {
-    setIsSaving(false)
-  }
-}
 
   const handleEdit = (
     item: Education
@@ -274,14 +312,17 @@ const handleSubmit = async (
       description:
         item.description ?? ''
     })
+
+    setError('')
   }
 
   const handleDelete = async (
     educationId: number
   ) => {
-    const confirmed = window.confirm(
-      'Delete this education entry?'
-    )
+    const confirmed =
+      window.confirm(
+        'Delete this education entry?'
+      )
 
     if (!confirmed) {
       return
@@ -296,11 +337,15 @@ const handleSubmit = async (
         educationId
       )
 
-      if (editingId === educationId) {
+      if (
+        editingId === educationId
+      ) {
         resetForm()
       }
 
       await loadEducation()
+
+      onChange?.()
     } catch (err) {
       setError(
         err instanceof Error
@@ -311,10 +356,11 @@ const handleSubmit = async (
   }
 
   return (
-    <section className="editor-section">
+    <section className="editor-section education-editor">
       <div className="editor-section-header">
         <div>
           <h2>Education</h2>
+
           <p>
             Add your academic qualifications.
           </p>
@@ -340,6 +386,7 @@ const handleSubmit = async (
             id="institution"
             type="text"
             value={form.institution}
+            maxLength={200}
             onChange={(event) =>
               handleChange(
                 'institution',
@@ -360,6 +407,7 @@ const handleSubmit = async (
             id="degree"
             type="text"
             value={form.degree}
+            maxLength={150}
             onChange={(event) =>
               handleChange(
                 'degree',
@@ -380,6 +428,7 @@ const handleSubmit = async (
             id="field"
             type="text"
             value={form.field}
+            maxLength={150}
             onChange={(event) =>
               handleChange(
                 'field',
@@ -387,6 +436,7 @@ const handleSubmit = async (
               )
             }
             placeholder="e.g. Computer Applications"
+            required
           />
         </div>
 
@@ -400,6 +450,7 @@ const handleSubmit = async (
               id="startDate"
               type="text"
               value={form.startDate}
+              maxLength={4}
               onChange={(event) =>
                 handleChange(
                   'startDate',
@@ -407,6 +458,7 @@ const handleSubmit = async (
                 )
               }
               placeholder="e.g. 2023"
+              required
             />
           </div>
 
@@ -419,6 +471,7 @@ const handleSubmit = async (
               id="endDate"
               type="text"
               value={form.endDate}
+              maxLength={7}
               onChange={(event) =>
                 handleChange(
                   'endDate',
@@ -426,6 +479,7 @@ const handleSubmit = async (
                 )
               }
               placeholder="e.g. 2027 or Present"
+              required
             />
           </div>
         </div>
@@ -438,6 +492,7 @@ const handleSubmit = async (
           <textarea
             id="description"
             rows={4}
+            maxLength={1000}
             value={form.description}
             onChange={(event) =>
               handleChange(
@@ -475,7 +530,9 @@ const handleSubmit = async (
 
       <div className="editor-list">
         {isLoading && (
-          <p>Loading education...</p>
+          <p>
+            Loading education...
+          </p>
         )}
 
         {!isLoading &&

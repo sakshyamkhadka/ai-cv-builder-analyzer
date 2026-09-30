@@ -2,3 +2,10 @@
 @use "reset";
 @use './auth';
 @use './cv-editor';
+@use './cv-preview';
+@use './editor/education';
+@use './editor/skills';
+@use './editor/experience';
+@use './editor/projects';
+@use './editor/certifications';
+@use './editor/languages';

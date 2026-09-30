@@ -2,8 +2,7 @@ import { z } from 'zod'
 
 import {
   optionalTextSchema,
-  optionalUrlSchema,
-  shortTextSchema
+  optionalUrlSchema
 } from './common.validator.js'
 
 const projectNameSchema = z
@@ -35,11 +34,10 @@ const technologiesSchema = z
   )
   .regex(
     /^[\p{L}\p{N}\s.,#+/&()'’:_-]+$/u,
-    'Technologies contains invalid characters'
+    'Technologies contain invalid characters'
   )
-  .optional()
 
-const optionalTechnologiesSchema =
+const requiredTechnologiesSchema =
   z.preprocess(
     (value) =>
       value === '' || value === null
@@ -61,10 +59,11 @@ export const createProjectSchema =
   z.object({
     name: projectNameSchema,
 
-    description: optionalTextSchema(1500),
+    description:
+      optionalTextSchema(1500),
 
     technologies:
-      optionalTechnologiesSchema,
+      requiredTechnologiesSchema,
 
     projectUrl:
       optionalProjectUrlSchema

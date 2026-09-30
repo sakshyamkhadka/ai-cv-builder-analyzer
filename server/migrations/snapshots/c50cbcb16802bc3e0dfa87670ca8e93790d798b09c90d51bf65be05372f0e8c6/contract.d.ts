@@ -34,7 +34,7 @@ import type {
 } from '@prisma/orm-postgres/contract/types';
 
 export type StorageHash =
-  StorageHashBase<'d595c37ff3c3c366a1d319fff95cff6c3c4ed558d45de2975511d097afbb2946'>;
+  StorageHashBase<'c50cbcb16802bc3e0dfa87670ca8e93790d798b09c90d51bf65be05372f0e8c6'>;
 export type ExecutionHash =
   ExecutionHashBase<'eb0aeb2becfb9c96897436f6ddd60b33d872d53452ae18f5e9eb1ae1f0d7d242'>;
 export type ProfileHash =
@@ -281,7 +281,6 @@ export type FieldOutputTypes = {
       readonly field: CodecTypes['pg/text@1']['output'] | null;
       readonly startDate: CodecTypes['pg/text@1']['output'] | null;
       readonly endDate: CodecTypes['pg/text@1']['output'] | null;
-      readonly currentlyStudying: CodecTypes['pg/bool@1']['output'];
       readonly description: CodecTypes['pg/text@1']['output'] | null;
     };
     readonly Experience: {
@@ -400,7 +399,6 @@ export type FieldInputTypes = {
       readonly field: CodecTypes['pg/text@1']['input'] | null;
       readonly startDate: CodecTypes['pg/text@1']['input'] | null;
       readonly endDate: CodecTypes['pg/text@1']['input'] | null;
-      readonly currentlyStudying: CodecTypes['pg/bool@1']['input'];
       readonly description: CodecTypes['pg/text@1']['input'] | null;
     };
     readonly Experience: {
@@ -512,7 +510,6 @@ export type StorageColumnTypes = {
       readonly weaknesses: CodecTypes['pg/text@1']['output'] | null;
     };
     readonly education: {
-      readonly currentlyStudying: CodecTypes['pg/bool@1']['output'];
       readonly cvId: CodecTypes['pg/int4@1']['output'];
       readonly degree: CodecTypes['pg/text@1']['output'];
       readonly description: CodecTypes['pg/text@1']['output'] | null;
@@ -631,7 +628,6 @@ export type StorageColumnInputTypes = {
       readonly weaknesses: CodecTypes['pg/text@1']['input'] | null;
     };
     readonly education: {
-      readonly currentlyStudying: CodecTypes['pg/bool@1']['input'];
       readonly cvId: CodecTypes['pg/int4@1']['input'];
       readonly degree: CodecTypes['pg/text@1']['input'];
       readonly description: CodecTypes['pg/text@1']['input'] | null;
@@ -779,7 +775,6 @@ export namespace Models {
     field: CodecTypes['pg/text@1']['output'] | null;
     startDate: CodecTypes['pg/text@1']['output'] | null;
     endDate: CodecTypes['pg/text@1']['output'] | null;
-    currentlyStudying: CodecTypes['pg/bool@1']['output'];
     description: CodecTypes['pg/text@1']['output'] | null;
     cv: public_CV;
     readonly [RelationKeys]?: 'cv';
@@ -1219,15 +1214,6 @@ type ContractBase = Omit<
                   readonly nativeType: 'text';
                   readonly codecId: 'pg/text@1';
                   readonly nullable: true;
-                };
-                readonly currentlyStudying: {
-                  readonly nativeType: 'bool';
-                  readonly codecId: 'pg/bool@1';
-                  readonly nullable: false;
-                  readonly default: {
-                    readonly kind: 'literal';
-                    readonly value: DefaultLiteralValue<'pg/bool@1', false>;
-                  };
                 };
                 readonly description: {
                   readonly nativeType: 'text';
@@ -2193,10 +2179,6 @@ type ContractBase = Omit<
                 readonly nullable: true;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
               };
-              readonly currentlyStudying: {
-                readonly nullable: false;
-                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/bool@1' };
-              };
               readonly description: {
                 readonly nullable: true;
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
@@ -2224,7 +2206,6 @@ type ContractBase = Omit<
                 readonly field: { readonly column: 'field' };
                 readonly startDate: { readonly column: 'startDate' };
                 readonly endDate: { readonly column: 'endDate' };
-                readonly currentlyStudying: { readonly column: 'currentlyStudying' };
                 readonly description: { readonly column: 'description' };
               };
             };

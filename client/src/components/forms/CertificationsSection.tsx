@@ -21,6 +21,7 @@ import {
 interface CertificationsSectionProps {
   token: string
   cvId: number
+  onChange?: () => void
 }
 
 interface CertificationForm {
@@ -39,7 +40,8 @@ const emptyForm: CertificationForm = {
 
 const CertificationsSection = ({
   token,
-  cvId
+  cvId,
+  onChange
 }: CertificationsSectionProps) => {
   const [certifications, setCertifications] =
     useState<Certification[]>([])
@@ -106,127 +108,128 @@ const CertificationsSection = ({
     setEditingId(null)
   }
 
-const handleSubmit = async (
-  event: FormEvent<HTMLFormElement>
-) => {
-  event.preventDefault()
+  const handleSubmit = async (
+    event: FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault()
 
-  setError('')
+    setError('')
 
-  const name = form.name.trim()
-  const organization =
-    form.organization.trim()
-  const issueDate =
-    form.issueDate.trim()
-  const credentialUrl =
-    form.credentialUrl.trim()
+    const name = form.name.trim()
+    const organization =
+      form.organization.trim()
+    const issueDate =
+      form.issueDate.trim()
+    const credentialUrl =
+      form.credentialUrl.trim()
 
-  if (name.length < 2) {
-    setError(
-      'Certification name must be at least 2 characters'
-    )
-    return
-  }
-
-  if (name.length > 200) {
-    setError(
-      'Certification name must be 200 characters or less'
-    )
-    return
-  }
-
-  if (!generalNameRegex.test(name)) {
-    setError(
-      'Certification name contains invalid characters'
-    )
-    return
-  }
-
-  if (organization) {
-    if (organization.length < 2) {
+    if (name.length < 2) {
       setError(
-        'Organization must be at least 2 characters'
+        'Certification name must be at least 2 characters'
       )
       return
     }
 
-    if (organization.length > 200) {
+    if (name.length > 200) {
       setError(
-        'Organization must be 200 characters or less'
+        'Certification name must be 200 characters or less'
       )
       return
     }
 
-    if (!generalNameRegex.test(organization)) {
+    if (!generalNameRegex.test(name)) {
       setError(
-        'Organization contains invalid characters'
+        'Certification name contains invalid characters'
       )
       return
     }
-  }
 
-  if (issueDate) {
-    const issueDateRegex =
-      /^(19|20)\d{2}(?:-(0[1-9]|1[0-2]))?$/
+    if (organization) {
+      if (organization.length < 2) {
+        setError(
+          'Organization must be at least 2 characters'
+        )
+        return
+      }
 
-    if (!issueDateRegex.test(issueDate)) {
+      if (organization.length > 200) {
+        setError(
+          'Organization must be 200 characters or less'
+        )
+        return
+      }
+
+      if (!generalNameRegex.test(organization)) {
+        setError(
+          'Organization contains invalid characters'
+        )
+        return
+      }
+    }
+
+    if (issueDate) {
+      const issueDateRegex =
+        /^(19|20)\d{2}(?:-(0[1-9]|1[0-2]))?$/
+
+      if (!issueDateRegex.test(issueDate)) {
+        setError(
+          'Issue Date must be in YYYY or YYYY-MM format'
+        )
+        return
+      }
+    }
+
+    const urlError =
+      validateUrl(credentialUrl)
+
+    if (urlError) {
       setError(
-        'Issue Date must be in YYYY or YYYY-MM format'
+        `Credential URL: ${urlError}`
       )
       return
     }
-  }
 
-  const urlError =
-    validateUrl(credentialUrl)
+    setIsSaving(true)
 
-  if (urlError) {
-    setError(
-      `Credential URL: ${urlError}`
-    )
-    return
-  }
+    try {
+      const data = {
+        name,
+        organization:
+          organization || undefined,
+        issueDate:
+          issueDate || undefined,
+        credentialUrl:
+          credentialUrl || undefined
+      }
 
-  setIsSaving(true)
+      if (editingId) {
+        await updateCertification(
+          token,
+          cvId,
+          editingId,
+          data
+        )
+      } else {
+        await createCertification(
+          token,
+          cvId,
+          data
+        )
+      }
 
-  try {
-    const data = {
-      name,
-      organization:
-        organization || undefined,
-      issueDate:
-        issueDate || undefined,
-      credentialUrl:
-        credentialUrl || undefined
-    }
-
-    if (editingId) {
-      await updateCertification(
-        token,
-        cvId,
-        editingId,
-        data
+      resetForm()
+      await loadCertifications()
+      onChange?.()
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'Failed to save certification'
       )
-    } else {
-      await createCertification(
-        token,
-        cvId,
-        data
-      )
+    } finally {
+      setIsSaving(false)
     }
-
-    resetForm()
-    await loadCertifications()
-  } catch (err) {
-    setError(
-      err instanceof Error
-        ? err.message
-        : 'Failed to save certification'
-    )
-  } finally {
-    setIsSaving(false)
   }
-}
 
   const handleEdit = (
     certification: Certification
@@ -269,6 +272,7 @@ const handleSubmit = async (
       }
 
       await loadCertifications()
+      onChange?.()
     } catch (err) {
       setError(
         err instanceof Error
@@ -279,7 +283,7 @@ const handleSubmit = async (
   }
 
   return (
-    <section className="editor-section">
+    <section className="editor-section certifications-editor">
       <div className="editor-section-header">
         <div>
           <h2>Certifications</h2>

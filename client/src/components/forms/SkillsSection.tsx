@@ -20,6 +20,7 @@ import {
 interface SkillsSectionProps {
   token: string
   cvId: number
+  onChange?: () => void
 }
 
 interface SkillForm {
@@ -34,7 +35,8 @@ const emptyForm: SkillForm = {
 
 const SkillsSection = ({
   token,
-  cvId
+  cvId,
+  onChange
 }: SkillsSectionProps) => {
   const [skills, setSkills] =
     useState<Skill[]>([])
@@ -97,84 +99,85 @@ const SkillsSection = ({
   }
 
   const handleSubmit = async (
-  event: FormEvent<HTMLFormElement>
-) => {
-  event.preventDefault()
+    event: FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault()
 
-  setError('')
+    setError('')
 
-  const name = form.name.trim()
-  const level = form.level.trim()
+    const name = form.name.trim()
+    const level = form.level.trim()
 
-  if (name.length < 2) {
-    setError(
-      'Skill name must be at least 2 characters'
-    )
-    return
-  }
-
-  if (name.length > 100) {
-    setError(
-      'Skill name must be 100 characters or less'
-    )
-    return
-  }
-
-  if (!skillRegex.test(name)) {
-    setError(
-      'Skill name contains invalid characters'
-    )
-    return
-  }
-
-  if (
-    level &&
-    ![
-      'Beginner',
-      'Intermediate',
-      'Advanced',
-      'Expert'
-    ].includes(level)
-  ) {
-    setError('Invalid skill level')
-    return
-  }
-
-  setIsSaving(true)
-
-  try {
-    const data = {
-      name,
-      level: level || undefined
+    if (name.length < 2) {
+      setError(
+        'Skill name must be at least 2 characters'
+      )
+      return
     }
 
-    if (editingId) {
-      await updateSkill(
-        token,
-        cvId,
-        editingId,
-        data
+    if (name.length > 100) {
+      setError(
+        'Skill name must be 100 characters or less'
       )
-    } else {
-      await createSkill(
-        token,
-        cvId,
-        data
-      )
+      return
     }
 
-    resetForm()
-    await loadSkills()
-  } catch (err) {
-    setError(
-      err instanceof Error
-        ? err.message
-        : 'Failed to save skill'
-    )
-  } finally {
-    setIsSaving(false)
+    if (!skillRegex.test(name)) {
+      setError(
+        'Skill name contains invalid characters'
+      )
+      return
+    }
+
+    if (
+      level &&
+      ![
+        'Beginner',
+        'Intermediate',
+        'Advanced',
+        'Expert'
+      ].includes(level)
+    ) {
+      setError('Invalid skill level')
+      return
+    }
+
+    setIsSaving(true)
+
+    try {
+      const data = {
+        name,
+        level: level || undefined
+      }
+
+      if (editingId) {
+        await updateSkill(
+          token,
+          cvId,
+          editingId,
+          data
+        )
+      } else {
+        await createSkill(
+          token,
+          cvId,
+          data
+        )
+      }
+
+      resetForm()
+      await loadSkills()
+      onChange?.()
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'Failed to save skill'
+      )
+    } finally {
+      setIsSaving(false)
+    }
   }
-}
 
   const handleEdit = (skill: Skill) => {
     setEditingId(skill.id)
@@ -210,6 +213,7 @@ const SkillsSection = ({
       }
 
       await loadSkills()
+      onChange?.()
     } catch (err) {
       setError(
         err instanceof Error
@@ -220,10 +224,11 @@ const SkillsSection = ({
   }
 
   return (
-    <section className="editor-section">
+    <section className="editor-section skills-editor">
       <div className="editor-section-header">
         <div>
           <h2>Skills</h2>
+
           <p>
             Add your technical and professional
             skills.
@@ -281,15 +286,19 @@ const SkillsSection = ({
               <option value="">
                 Select level
               </option>
+
               <option value="Beginner">
                 Beginner
               </option>
+
               <option value="Intermediate">
                 Intermediate
               </option>
+
               <option value="Advanced">
                 Advanced
               </option>
+
               <option value="Expert">
                 Expert
               </option>

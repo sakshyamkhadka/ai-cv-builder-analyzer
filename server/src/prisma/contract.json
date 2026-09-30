@@ -66,10 +66,31 @@
                   "kind": "scalar"
                 }
               },
+              "email": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "fullName": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
               "id": {
                 "nullable": false,
                 "type": {
                   "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              },
+              "phone": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
                   "kind": "scalar"
                 }
               },
@@ -268,8 +289,17 @@
                 "createdAt": {
                   "column": "createdAt"
                 },
+                "email": {
+                  "column": "email"
+                },
+                "fullName": {
+                  "column": "fullName"
+                },
                 "id": {
                   "column": "id"
+                },
+                "phone": {
+                  "column": "phone"
                 },
                 "summary": {
                   "column": "summary"
@@ -515,6 +545,13 @@
           },
           "Education": {
             "fields": {
+              "currentlyStudying": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/bool@1",
+                  "kind": "scalar"
+                }
+              },
               "cvId": {
                 "nullable": false,
                 "type": {
@@ -592,6 +629,9 @@
             },
             "storage": {
               "fields": {
+                "currentlyStudying": {
+                  "column": "currentlyStudying"
+                },
                 "cvId": {
                   "column": "cvId"
                 },
@@ -1525,6 +1565,16 @@
                   "nativeType": "timestamptz",
                   "nullable": false
                 },
+                "email": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
+                "fullName": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
                 "id": {
                   "codecId": "pg/int4@1",
                   "default": {
@@ -1533,6 +1583,11 @@
                   },
                   "nativeType": "int4",
                   "nullable": false
+                },
+                "phone": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
                 },
                 "summary": {
                   "codecId": "pg/text@1",
@@ -1808,6 +1863,15 @@
             },
             "education": {
               "columns": {
+                "currentlyStudying": {
+                  "codecId": "pg/bool@1",
+                  "default": {
+                    "kind": "literal",
+                    "value": false
+                  },
+                  "nativeType": "bool",
+                  "nullable": false
+                },
                 "cvId": {
                   "codecId": "pg/int4@1",
                   "nativeType": "int4",
@@ -2561,7 +2625,7 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "ebec57869af262895be91a6a7fae8daba86d1f727d5481f6846d27ffb42e684d"
+    "storageHash": "d595c37ff3c3c366a1d319fff95cff6c3c4ed558d45de2975511d097afbb2946"
   },
   "execution": {
     "executionHash": "eb0aeb2becfb9c96897436f6ddd60b33d872d53452ae18f5e9eb1ae1f0d7d242",

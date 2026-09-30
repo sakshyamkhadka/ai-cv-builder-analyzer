@@ -65,17 +65,21 @@ const languageNameSchema = z
     'Please select a valid supported language'
   )
 
+const requiredProficiencySchema =
+  z.preprocess(
+    (value) =>
+      value === '' || value === null
+        ? undefined
+        : value,
+    proficiencySchema
+  )
+
 export const createLanguageSchema =
   z.object({
     name: languageNameSchema,
 
-    proficiency: z.preprocess(
-      (value) =>
-        value === '' || value === null
-          ? undefined
-          : value,
-      proficiencySchema.optional()
-    )
+    proficiency:
+      requiredProficiencySchema
   })
 
 export const updateLanguageSchema =

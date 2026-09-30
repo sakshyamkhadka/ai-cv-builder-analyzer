@@ -1,0 +1,124 @@
+@use 'variables' as *;
+
+.cv-preview {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cv-preview__toolbar {
+    width: 210mm;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.cv-preview__actions {
+    display: flex;
+    align-items: center;
+}
+
+.cv-preview__paper {
+    width: 210mm;
+    min-height: 297mm;
+    background: #ffffff;
+}
+.cv-preview__actions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    min-width: 160px;
+    height: 44px;
+    padding: 0 20px;
+
+    border: 1px solid $color-primary;
+    border-radius: $radius-md;
+
+    background: $color-primary;
+    color: $color-white;
+
+    font-family: $font-family;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 2px 4px rgba(31, 41, 55, 0.08),
+        0 4px 10px rgba(108, 99, 255, 0.18);
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.15s ease;
+}
+
+/* Download icon */
+.cv-preview__actions button::before {
+    content: "↓";
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 20px;
+    height: 20px;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    transition: transform 0.2s ease;
+}
+
+/* Hover */
+.cv-preview__actions button:hover:not(:disabled) {
+    background: $color-primary-dark;
+    border-color: $color-primary-dark;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 4px 8px rgba(31, 41, 55, 0.10),
+        0 7px 16px rgba(108, 99, 255, 0.25);
+}
+
+.cv-preview__actions button:hover:not(:disabled)::before {
+    transform: translateY(2px);
+}
+
+/* Active */
+.cv-preview__actions button:active:not(:disabled) {
+    transform: translateY(0);
+
+    box-shadow:
+        0 2px 4px rgba(31, 41, 55, 0.10);
+}
+
+/* Keyboard focus */
+.cv-preview__actions button:focus-visible {
+    outline: 3px solid rgba(108, 99, 255, 0.22);
+    outline-offset: 3px;
+}
+
+/* Disabled / generating */
+.cv-preview__actions button:disabled {
+    background: $color-text-light;
+    border-color: $color-text-light;
+
+    color: $color-white;
+
+    cursor: wait;
+
+    transform: none;
+    box-shadow: none;
+}
+
+.cv-preview__actions button:disabled::before {
+    transform: none;
+}

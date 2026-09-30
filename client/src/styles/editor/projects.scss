@@ -1,0 +1,489 @@
+@use '../variables' as *;
+
+/* =========================================
+   PROJECTS EDITOR
+   ========================================= */
+
+.projects-editor {
+    width: 100%;
+    padding: 24px;
+
+    background: $color-white;
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+
+    box-shadow:
+        0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.projects-editor .editor-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    margin-bottom: 24px;
+}
+
+.projects-editor .editor-section-header h2 {
+    margin: 0;
+
+    color: $color-text;
+    font-family: $font-family;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.projects-editor .editor-section-header p {
+    margin: 6px 0 0;
+
+    color: $color-text-light;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* =========================================
+   ERROR
+   ========================================= */
+
+.projects-editor .auth-error {
+    margin: 0 0 18px;
+    padding: 10px 12px;
+
+    border: 1px solid rgba(220, 38, 38, 0.18);
+    border-radius: $radius-md;
+
+    background: rgba(220, 38, 38, 0.06);
+    color: #b42318;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* =========================================
+   FORM
+   ========================================= */
+
+.projects-editor .editor-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    padding: 20px;
+
+    background: #f9fafb;
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+}
+
+/* =========================================
+   FORM GROUP
+   ========================================= */
+
+.projects-editor .form-group {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+.projects-editor .form-group label {
+    color: $color-text;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* =========================================
+   INPUT + TEXTAREA
+   ========================================= */
+
+.projects-editor .form-group input,
+.projects-editor .form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 11px 13px;
+
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+
+    background: $color-white;
+    color: $color-text;
+
+    font-family: $font-family;
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.projects-editor .form-group input {
+    height: 42px;
+}
+
+.projects-editor .form-group textarea {
+    min-height: 120px;
+
+    resize: vertical;
+
+    line-height: 1.5;
+}
+
+.projects-editor .form-group input::placeholder,
+.projects-editor .form-group textarea::placeholder {
+    color: #98a2b3;
+}
+
+/* =========================================
+   HOVER
+   ========================================= */
+
+.projects-editor .form-group input:hover,
+.projects-editor .form-group textarea:hover {
+    border-color: #b8c0cc;
+}
+
+/* =========================================
+   FOCUS
+   ========================================= */
+
+.projects-editor .form-group input:focus,
+.projects-editor .form-group textarea:focus {
+    border-color: $color-primary;
+
+    box-shadow:
+        0 0 0 3px rgba(108, 99, 255, 0.12);
+}
+
+/* =========================================
+   FORM ACTIONS
+   ========================================= */
+
+.projects-editor .editor-form-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding-top: 4px;
+}
+
+.projects-editor .editor-form-actions button {
+    min-height: 40px;
+
+    padding: 0 16px;
+
+    border: 1px solid transparent;
+    border-radius: $radius-md;
+
+    font-family: $font-family;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.15s ease;
+}
+
+/* =========================================
+   ADD / UPDATE
+   ========================================= */
+
+.projects-editor .editor-form-actions button[type='submit'] {
+    background: $color-primary;
+    border-color: $color-primary;
+
+    color: $color-white;
+
+    box-shadow:
+        0 2px 4px rgba(108, 99, 255, 0.16);
+}
+
+.projects-editor
+    .editor-form-actions
+    button[type='submit']:hover:not(:disabled) {
+    background: $color-primary-dark;
+    border-color: $color-primary-dark;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 8px rgba(108, 99, 255, 0.20);
+}
+
+/* =========================================
+   CANCEL
+   ========================================= */
+
+.projects-editor .editor-form-actions button[type='button'] {
+    background: $color-white;
+    border-color: $color-border;
+
+    color: $color-text;
+}
+
+.projects-editor
+    .editor-form-actions
+    button[type='button']:hover:not(:disabled) {
+    background: #f3f4f6;
+    border-color: #b8c0cc;
+}
+
+/* =========================================
+   DISABLED
+   ========================================= */
+
+.projects-editor .editor-form-actions button:disabled {
+    opacity: 0.6;
+
+    cursor: wait;
+
+    transform: none;
+}
+
+/* =========================================
+   PROJECT LIST
+   ========================================= */
+
+.projects-editor .editor-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+
+    margin-top: 24px;
+}
+
+.projects-editor .editor-list > p {
+    margin: 0;
+
+    padding: 20px;
+
+    border: 1px dashed $color-border;
+    border-radius: $radius-md;
+
+    color: $color-text-light;
+
+    font-size: 14px;
+
+    text-align: center;
+}
+
+/* =========================================
+   PROJECT CARD
+   ========================================= */
+
+.projects-editor .editor-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 20px;
+
+    padding: 18px;
+
+    background: $color-white;
+
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.15s ease;
+}
+
+.projects-editor .editor-item:hover {
+    border-color: #c7ccd5;
+
+    box-shadow:
+        0 3px 10px rgba(16, 24, 40, 0.06);
+
+    transform: translateY(-1px);
+}
+
+.projects-editor .editor-item > div:first-child {
+    min-width: 0;
+
+    flex: 1;
+}
+
+/* =========================================
+   PROJECT TEXT
+   ========================================= */
+
+.projects-editor .editor-item h3 {
+    margin: 0 0 8px;
+
+    color: $color-text;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    overflow-wrap: anywhere;
+}
+
+.projects-editor .editor-item p {
+    margin: 6px 0;
+
+    color: $color-text-light;
+
+    font-size: 13px;
+
+    line-height: 1.55;
+
+    overflow-wrap: anywhere;
+}
+
+/* TECHNOLOGIES */
+
+.projects-editor .editor-item p:first-of-type {
+    color: $color-primary;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* DESCRIPTION */
+
+.projects-editor .editor-item p:nth-of-type(2) {
+    color: $color-text-light;
+
+    line-height: 1.6;
+}
+
+/* =========================================
+   PROJECT LINK
+   ========================================= */
+
+.projects-editor .editor-item a {
+    display: inline-flex;
+    align-items: center;
+
+    margin-top: 4px;
+
+    color: $color-primary;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease;
+}
+
+.projects-editor .editor-item a:hover {
+    color: $color-primary-dark;
+
+    text-decoration: underline;
+}
+
+/* =========================================
+   EDIT / DELETE
+   ========================================= */
+
+.projects-editor .editor-item-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    flex-shrink: 0;
+}
+
+.projects-editor .editor-item-actions button {
+    min-width: 64px;
+
+    height: 34px;
+
+    padding: 0 11px;
+
+    border-radius: $radius-md;
+
+    font-family: $font-family;
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+/* EDIT */
+
+.projects-editor .editor-item-actions button:first-child {
+    background: rgba(108, 99, 255, 0.08);
+
+    border: 1px solid rgba(108, 99, 255, 0.18);
+
+    color: $color-primary;
+}
+
+.projects-editor .editor-item-actions button:first-child:hover {
+    background: rgba(108, 99, 255, 0.14);
+
+    border-color: rgba(108, 99, 255, 0.28);
+}
+
+/* DELETE */
+
+.projects-editor .editor-item-actions button:last-child {
+    background: rgba(220, 38, 38, 0.06);
+
+    border: 1px solid rgba(220, 38, 38, 0.16);
+
+    color: #b42318;
+}
+
+.projects-editor .editor-item-actions button:last-child:hover {
+    background: rgba(220, 38, 38, 0.11);
+
+    border-color: rgba(220, 38, 38, 0.25);
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 700px) {
+    .projects-editor {
+        padding: 18px;
+    }
+
+    .projects-editor .editor-form {
+        padding: 16px;
+    }
+
+    .projects-editor .editor-item {
+        flex-direction: column;
+    }
+
+    .projects-editor .editor-item-actions {
+        width: 100%;
+    }
+
+    .projects-editor .editor-item-actions button {
+        flex: 1;
+    }
+
+    .projects-editor .editor-form-actions {
+        flex-wrap: wrap;
+    }
+}

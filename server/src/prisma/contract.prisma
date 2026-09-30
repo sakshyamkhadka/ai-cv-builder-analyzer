@@ -23,6 +23,9 @@ model CV {
   user           User                       @relation(fields:[userId], references:[id])
   userId         Int
   title          String
+  fullName       String?
+  email          String?
+  phone          String?
   template       Template                   @relation(fields:[templateId], references:[id])
   templateId     Int
   summary        String?
@@ -40,15 +43,16 @@ model CV {
 }
 
 model Education {
-  id          Int     @id @default(autoincrement())
-  cv          CV      @relation(fields:[cvId], references:[id])
-  cvId        Int
-  institution String
-  degree      String
-  field       String?
-  startDate   String?
-  endDate     String?
-  description String?
+  id                Int     @id @default(autoincrement())
+  cv                CV      @relation(fields:[cvId], references:[id])
+  cvId              Int
+  institution       String
+  degree            String
+  field             String?
+  startDate         String?
+  endDate           String?
+  currentlyStudying Boolean @default(false)
+  description       String?
 }
 
 model Skill {

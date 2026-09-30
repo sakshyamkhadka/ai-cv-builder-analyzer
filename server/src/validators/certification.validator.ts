@@ -1,9 +1,7 @@
 import { z } from 'zod'
 
 import {
-  optionalUrlSchema,
-  optionalTextSchema,
-  shortTextSchema
+  optionalUrlSchema
 } from './common.validator.js'
 
 const certificationNameSchema = z
@@ -37,31 +35,21 @@ const organizationSchema = z
     /^[\p{L}\p{N}\s&.'’(),:/#+_-]+$/u,
     'Organization contains invalid characters'
   )
-  .optional()
 
-const optionalOrganizationSchema =
+const requiredIssueDateSchema =
   z.preprocess(
     (value) =>
       value === '' || value === null
         ? undefined
         : value,
-    organizationSchema
+    z
+      .string()
+      .trim()
+      .regex(
+        /^(19|20)\d{2}(?:-(0[1-9]|1[0-2]))?$/,
+        'Issue date must be in YYYY or YYYY-MM format'
+      )
   )
-
-const issueDateSchema = z.preprocess(
-  (value) =>
-    value === '' || value === null
-      ? undefined
-      : value,
-  z
-    .string()
-    .trim()
-    .regex(
-      /^(19|20)\d{2}(?:-(0[1-9]|1[0-2]))?$/,
-      'Issue date must be in YYYY or YYYY-MM format'
-    )
-    .optional()
-)
 
 const credentialUrlSchema =
   z.preprocess(
@@ -77,10 +65,10 @@ export const createCertificationSchema =
     name: certificationNameSchema,
 
     organization:
-      optionalOrganizationSchema,
+      organizationSchema,
 
     issueDate:
-      issueDateSchema,
+      requiredIssueDateSchema,
 
     credentialUrl:
       credentialUrlSchema

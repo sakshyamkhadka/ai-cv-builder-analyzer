@@ -1,0 +1,501 @@
+@use '../variables' as *;
+
+/* =========================================
+   CERTIFICATIONS EDITOR
+   ========================================= */
+
+.certifications-editor {
+    width: 100%;
+    padding: 24px;
+
+    background: $color-white;
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+
+    box-shadow:
+        0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.certifications-editor .editor-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    margin-bottom: 24px;
+}
+
+.certifications-editor .editor-section-header h2 {
+    margin: 0;
+
+    color: $color-text;
+    font-family: $font-family;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.certifications-editor .editor-section-header p {
+    margin: 6px 0 0;
+
+    color: $color-text-light;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* =========================================
+   ERROR
+   ========================================= */
+
+.certifications-editor .auth-error {
+    margin: 0 0 18px;
+    padding: 10px 12px;
+
+    border: 1px solid rgba(220, 38, 38, 0.18);
+    border-radius: $radius-md;
+
+    background: rgba(220, 38, 38, 0.06);
+    color: #b42318;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* =========================================
+   FORM
+   ========================================= */
+
+.certifications-editor .editor-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    padding: 20px;
+
+    background: #f9fafb;
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+}
+
+/* =========================================
+   FORM ROW
+   ========================================= */
+
+.certifications-editor .editor-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* =========================================
+   FORM GROUP
+   ========================================= */
+
+.certifications-editor .form-group {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+.certifications-editor .form-group label {
+    color: $color-text;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* =========================================
+   INPUT
+   ========================================= */
+
+.certifications-editor .form-group input {
+    width: 100%;
+    box-sizing: border-box;
+
+    height: 42px;
+    padding: 0 13px;
+
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+
+    background: $color-white;
+    color: $color-text;
+
+    font-family: $font-family;
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.certifications-editor .form-group input::placeholder {
+    color: #98a2b3;
+}
+
+/* =========================================
+   HOVER
+   ========================================= */
+
+.certifications-editor .form-group input:hover {
+    border-color: #b8c0cc;
+}
+
+/* =========================================
+   FOCUS
+   ========================================= */
+
+.certifications-editor .form-group input:focus {
+    border-color: $color-primary;
+
+    box-shadow:
+        0 0 0 3px rgba(108, 99, 255, 0.12);
+}
+
+/* =========================================
+   FORM ACTIONS
+   ========================================= */
+
+.certifications-editor .editor-form-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding-top: 4px;
+}
+
+.certifications-editor .editor-form-actions button {
+    min-height: 40px;
+
+    padding: 0 16px;
+
+    border: 1px solid transparent;
+    border-radius: $radius-md;
+
+    font-family: $font-family;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.15s ease;
+}
+
+/* =========================================
+   ADD / UPDATE
+   ========================================= */
+
+.certifications-editor
+    .editor-form-actions
+    button[type='submit'] {
+    background: $color-primary;
+    border-color: $color-primary;
+
+    color: $color-white;
+
+    box-shadow:
+        0 2px 4px rgba(108, 99, 255, 0.16);
+}
+
+.certifications-editor
+    .editor-form-actions
+    button[type='submit']:hover:not(:disabled) {
+    background: $color-primary-dark;
+    border-color: $color-primary-dark;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 8px rgba(108, 99, 255, 0.20);
+}
+
+/* =========================================
+   CANCEL
+   ========================================= */
+
+.certifications-editor
+    .editor-form-actions
+    button[type='button'] {
+    background: $color-white;
+    border-color: $color-border;
+
+    color: $color-text;
+}
+
+.certifications-editor
+    .editor-form-actions
+    button[type='button']:hover:not(:disabled) {
+    background: #f3f4f6;
+    border-color: #b8c0cc;
+}
+
+/* =========================================
+   DISABLED
+   ========================================= */
+
+.certifications-editor .editor-form-actions button:disabled {
+    opacity: 0.6;
+
+    cursor: wait;
+
+    transform: none;
+}
+
+/* =========================================
+   CERTIFICATION LIST
+   ========================================= */
+
+.certifications-editor .editor-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+
+    margin-top: 24px;
+}
+
+.certifications-editor .editor-list > p {
+    margin: 0;
+
+    padding: 20px;
+
+    border: 1px dashed $color-border;
+    border-radius: $radius-md;
+
+    color: $color-text-light;
+
+    font-size: 14px;
+
+    text-align: center;
+}
+
+/* =========================================
+   CERTIFICATION CARD
+   ========================================= */
+
+.certifications-editor .editor-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 20px;
+
+    padding: 18px;
+
+    background: $color-white;
+
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.15s ease;
+}
+
+.certifications-editor .editor-item:hover {
+    border-color: #c7ccd5;
+
+    box-shadow:
+        0 3px 10px rgba(16, 24, 40, 0.06);
+
+    transform: translateY(-1px);
+}
+
+.certifications-editor .editor-item > div:first-child {
+    min-width: 0;
+
+    flex: 1;
+}
+
+/* =========================================
+   CERTIFICATION TEXT
+   ========================================= */
+
+.certifications-editor .editor-item h3 {
+    margin: 0 0 8px;
+
+    color: $color-text;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    overflow-wrap: anywhere;
+}
+
+.certifications-editor .editor-item p {
+    margin: 6px 0;
+
+    color: $color-text-light;
+
+    font-size: 13px;
+    line-height: 1.55;
+
+    overflow-wrap: anywhere;
+}
+
+/* ORGANIZATION */
+
+.certifications-editor .editor-item p:first-of-type {
+    color: $color-primary;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* ISSUE DATE */
+
+.certifications-editor .editor-item p:nth-of-type(2) {
+    color: $color-text-light;
+
+    font-size: 12px;
+}
+
+/* =========================================
+   CREDENTIAL LINK
+   ========================================= */
+
+.certifications-editor .editor-item a {
+    display: inline-flex;
+    align-items: center;
+
+    margin-top: 2px;
+
+    color: $color-primary;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease;
+}
+
+.certifications-editor .editor-item a:hover {
+    color: $color-primary-dark;
+
+    text-decoration: underline;
+}
+
+/* =========================================
+   EDIT / DELETE
+   ========================================= */
+
+.certifications-editor .editor-item-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    flex-shrink: 0;
+}
+
+.certifications-editor .editor-item-actions button {
+    min-width: 64px;
+
+    height: 34px;
+
+    padding: 0 11px;
+
+    border-radius: $radius-md;
+
+    font-family: $font-family;
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+/* EDIT */
+
+.certifications-editor
+    .editor-item-actions
+    button:first-child {
+    background: rgba(108, 99, 255, 0.08);
+
+    border: 1px solid rgba(108, 99, 255, 0.18);
+
+    color: $color-primary;
+}
+
+.certifications-editor
+    .editor-item-actions
+    button:first-child:hover {
+    background: rgba(108, 99, 255, 0.14);
+
+    border-color: rgba(108, 99, 255, 0.28);
+}
+
+/* DELETE */
+
+.certifications-editor
+    .editor-item-actions
+    button:last-child {
+    background: rgba(220, 38, 38, 0.06);
+
+    border: 1px solid rgba(220, 38, 38, 0.16);
+
+    color: #b42318;
+}
+
+.certifications-editor
+    .editor-item-actions
+    button:last-child:hover {
+    background: rgba(220, 38, 38, 0.11);
+
+    border-color: rgba(220, 38, 38, 0.25);
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 700px) {
+    .certifications-editor {
+        padding: 18px;
+    }
+
+    .certifications-editor .editor-form {
+        padding: 16px;
+    }
+
+    .certifications-editor .editor-form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .certifications-editor .editor-item {
+        flex-direction: column;
+    }
+
+    .certifications-editor .editor-item-actions {
+        width: 100%;
+    }
+
+    .certifications-editor
+        .editor-item-actions
+        button {
+        flex: 1;
+    }
+
+    .certifications-editor .editor-form-actions {
+        flex-wrap: wrap;
+    }
+}

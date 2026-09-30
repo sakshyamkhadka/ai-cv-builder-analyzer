@@ -22,6 +22,7 @@ import {
 interface ProjectsSectionProps {
   token: string
   cvId: number
+  onChange?: () => void
 }
 
 interface ProjectForm {
@@ -40,7 +41,8 @@ const emptyForm: ProjectForm = {
 
 const ProjectsSection = ({
   token,
-  cvId
+  cvId,
+  onChange
 }: ProjectsSectionProps) => {
   const [projects, setProjects] =
     useState<Project[]>([])
@@ -204,7 +206,10 @@ const ProjectsSection = ({
       }
 
       resetForm()
+
       await loadProjects()
+
+      onChange?.()
     } catch (err) {
       setError(
         err instanceof Error
@@ -257,6 +262,8 @@ const ProjectsSection = ({
       }
 
       await loadProjects()
+
+      onChange?.()
     } catch (err) {
       setError(
         err instanceof Error
@@ -267,7 +274,7 @@ const ProjectsSection = ({
   }
 
   return (
-    <section className="editor-section">
+    <section className="editor-section projects-editor">
       <div className="editor-section-header">
         <div>
           <h2>Projects</h2>

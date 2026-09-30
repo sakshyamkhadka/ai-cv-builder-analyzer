@@ -42,12 +42,7 @@ const optionalEndDateSchema =
       value === null
         ? undefined
         : value,
-    z
-      .union([
-        yearSchema,
-        z.literal('Present')
-      ])
-      .optional()
+    yearSchema.optional()
   )
 
 const createEducationSchemaBase =
@@ -80,6 +75,9 @@ const createEducationSchemaBase =
     endDate:
       optionalEndDateSchema,
 
+    currentlyStudying:
+      z.boolean().default(false),
+
     description:
       optionalTextSchema(1000)
   })
@@ -88,9 +86,21 @@ export const createEducationSchema =
   createEducationSchemaBase.superRefine(
     (data, ctx) => {
       if (
+        data.currentlyStudying &&
+        data.endDate
+      ) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ['endDate'],
+          message:
+            'End year must be empty when currently studying'
+        })
+      }
+
+      if (
+        !data.currentlyStudying &&
         data.startDate &&
         data.endDate &&
-        data.endDate !== 'Present' &&
         Number(data.endDate) <
           Number(data.startDate)
       ) {
@@ -104,5 +114,4 @@ export const createEducationSchema =
     }
   )
 
-export const updateEducationSchema =
-  createEducationSchema
+export const updateEducationSchema = createEducationSchema

@@ -22,6 +22,7 @@ import {
 interface LanguagesSectionProps {
   token: string
   cvId: number
+  onChange?: () => void
 }
 
 interface LanguageForm {
@@ -36,7 +37,8 @@ const emptyForm: LanguageForm = {
 
 const LanguagesSection = ({
   token,
-  cvId
+  cvId,
+  onChange
 }: LanguagesSectionProps) => {
   const [languages, setLanguages] =
     useState<Language[]>([])
@@ -153,6 +155,7 @@ const LanguagesSection = ({
 
       resetForm()
       await loadLanguages()
+      onChange?.()
     } catch (err) {
       setError(
         err instanceof Error
@@ -201,6 +204,7 @@ const LanguagesSection = ({
       }
 
       await loadLanguages()
+      onChange?.()
     } catch (err) {
       setError(
         err instanceof Error
@@ -211,7 +215,7 @@ const LanguagesSection = ({
   }
 
   return (
-    <section className="editor-section">
+    <section className="editor-section languages-editor">
       <div className="editor-section-header">
         <div>
           <h2>Languages</h2>
@@ -392,4 +396,3 @@ const LanguagesSection = ({
 }
 
 export default LanguagesSection
-
