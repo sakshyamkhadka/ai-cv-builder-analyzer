@@ -1058,7 +1058,7 @@ const EditCV = () => {
                             }}
                         >
 
-                            <CVPreview
+                            <CVPreview templateId={templateId ?? 1}
                                 title={title}
                                 fullName={fullName}
                                 email={email}
