@@ -1,7 +1,7 @@
 @use '../variables' as *;
 
 /* ========================================
-   CLASSIC â€” PROFESSIONAL TWO COLUMN
+   CLASSIC — PROFESSIONAL TWO COLUMN
 ======================================== */
 
 .cv-classic {
@@ -11,7 +11,7 @@
     background: #ffffff;
     color: #20252b;
 
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Inter', sans-serif;
 
     box-sizing: border-box;
 }
@@ -23,7 +23,7 @@
 .cv-classic__header {
     width: 100%;
 
-    padding: 28px 32px;
+    padding: 26px 32px;
 
     background: #172536;
     color: #ffffff;
@@ -33,6 +33,7 @@
 
 .cv-classic__header-content {
     display: flex;
+
     align-items: center;
 
     gap: 20px;
@@ -60,27 +61,27 @@
 
     color: #ffffff;
 
-    font-size: 29px;
+    font-size: 28px;
     font-weight: 800;
 
-    line-height: 1.1;
+    line-height: 1.15;
 
-    letter-spacing: 0.04em;
+    letter-spacing: 0.02em;
 
-    text-transform: uppercase;
+    text-transform: none;
 }
 
 .cv-classic__identity p {
-    margin: 7px 0 0;
+    margin: 6px 0 0;
 
     color: #d7dee7;
 
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 500;
 
-    line-height: 1.4;
+    line-height: 1.5;
 
-    letter-spacing: 0.16em;
+    letter-spacing: 0.08em;
 
     text-transform: uppercase;
 }
@@ -102,8 +103,7 @@
 ======================================== */
 
 .cv-classic__sidebar {
-    padding: 25px 21px 30px;
-
+    padding: 25px 23px 30px;
     background: #f3f5f7;
 
     border-right: 1px solid #dfe3e7;
@@ -122,7 +122,7 @@
 ======================================== */
 
 .cv-classic__section {
-    margin: 0 0 25px;
+    margin: 0 0 22px;
 }
 
 .cv-classic__section:last-child {
@@ -130,20 +130,20 @@
 }
 
 .cv-classic__section h2 {
-    margin: 0 0 12px;
+    margin: 0 0 10px;
 
-    padding-bottom: 6px;
+    padding-bottom: 5px;
 
     color: #172536;
 
-    border-bottom: 2px solid #172536;
+    border-bottom: 1px solid #172536;
 
-    font-size: 10px;
-    font-weight: 800;
+    font-size: 9.5px;
+    font-weight: 700;
 
-    line-height: 1.3;
+    line-height: 1.4;
 
-    letter-spacing: 0.16em;
+    letter-spacing: 0.12em;
 
     text-transform: uppercase;
 }
@@ -159,12 +159,12 @@
 .cv-classic__contact {
     display: flex;
     flex-direction: column;
-
-    gap: 11px;
+    gap: 9px;
 }
 
-.cv-classic__contact > div {
+.cv-classic__contact>div {
     display: flex;
+
     flex-direction: column;
 
     gap: 3px;
@@ -209,9 +209,9 @@
 
     color: #454c54;
 
-    font-size: 10.5px;
+    font-size: 9.8px;
 
-    line-height: 1.7;
+    line-height: 1.65;
 }
 
 /* ========================================
@@ -219,7 +219,7 @@
 ======================================== */
 
 .cv-classic__item {
-    margin-bottom: 19px;
+    margin-bottom: 17px;
 }
 
 .cv-classic__item:last-child {
@@ -229,26 +229,26 @@
 .cv-classic__item strong {
     display: block;
 
-    margin: 0 0 4px;
+    margin: 0 0 3px;
 
     color: #20262d;
 
-    font-size: 11.5px;
-    font-weight: 750;
+    font-size: 10.5px;
+    font-weight: 700;
 
     line-height: 1.4;
 }
 
-.cv-classic__item > span {
+.cv-classic__item>span {
     display: block;
 
     margin-bottom: 3px;
 
     color: #59636e;
 
-    font-size: 9.5px;
+    font-size: 9px;
 
-    line-height: 1.45;
+    line-height: 1.5;
 }
 
 .cv-classic__item small {
@@ -289,11 +289,11 @@
     gap: 16px;
 }
 
-.cv-classic__item-header > div {
+.cv-classic__item-header>div {
     min-width: 0;
 }
 
-.cv-classic__item-header > small {
+.cv-classic__item-header>small {
     flex: 0 0 auto;
 
     margin-top: 1px;
@@ -302,7 +302,7 @@
 }
 
 /* ========================================
-   EDUCATION / SIDEBAR ITEMS
+   SIDEBAR ITEMS
 ======================================== */
 
 .cv-classic__sidebar .cv-classic__item {
@@ -313,7 +313,7 @@
     font-size: 10px;
 }
 
-.cv-classic__sidebar .cv-classic__item > span {
+.cv-classic__sidebar .cv-classic__item>span {
     font-size: 8.8px;
 }
 
@@ -328,8 +328,7 @@
 .cv-classic__skills {
     display: flex;
     flex-direction: column;
-
-    gap: 9px;
+    gap: 7px;
 }
 
 .cv-classic__skill {
@@ -372,11 +371,10 @@
 .cv-classic__languages {
     display: flex;
     flex-direction: column;
-
-    gap: 9px;
+    gap: 7px;
 }
 
-.cv-classic__languages > div {
+.cv-classic__languages>div {
     display: flex;
 
     justify-content: space-between;
@@ -407,7 +405,11 @@
 ======================================== */
 
 .cv-classic__link {
-    display: inline-block;
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 4px;
 
     margin-top: 7px;
 
@@ -419,8 +421,106 @@
     text-decoration: none;
 }
 
+.cv-classic__link svg {
+    width: 10px;
+    height: 10px;
+
+    flex: 0 0 auto;
+}
+
 .cv-classic__link:hover {
     text-decoration: underline;
+}
+
+/* ========================================
+   PROJECTS
+======================================== */
+
+.cv-classic__projects {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0;
+}
+
+.cv-classic__project {
+    padding: 0 0 17px;
+
+    margin: 0 0 17px;
+
+    border-bottom: 1px solid #dfe3e7;
+}
+
+.cv-classic__project:last-child {
+    padding-bottom: 0;
+
+    margin-bottom: 0;
+
+    border-bottom: 0;
+}
+
+.cv-classic__project-header {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 16px;
+}
+
+.cv-classic__project-title {
+    min-width: 0;
+}
+
+.cv-classic__project-title h3 {
+    margin: 0 0 4px;
+
+    color: #20262d;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    line-height: 1.4;
+}
+
+.cv-classic__project-title h3 a {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 4px;
+
+    color: inherit;
+
+    text-decoration: none;
+}
+
+.cv-classic__project-title h3 a:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.cv-classic__project-title span {
+    display: block;
+
+    color: #59636e;
+
+    font-size: 8.8px;
+    font-weight: 600;
+
+    line-height: 1.45;
+}
+
+.cv-classic__project-description {
+    margin: 8px 0 0;
+
+    color: #4a525b;
+
+    font-size: 9.5px;
+
+    line-height: 1.65;
 }
 
 /* ========================================
@@ -435,6 +535,7 @@
     .cv-classic__header,
     .cv-classic__sidebar {
         -webkit-print-color-adjust: exact;
+
         print-color-adjust: exact;
     }
 }
@@ -450,6 +551,7 @@
 
     .cv-classic__sidebar {
         border-right: 0;
+
         border-bottom: 1px solid #dfe3e7;
     }
 
@@ -463,72 +565,7 @@
         gap: 3px;
     }
 
-    .cv-classic__item-header > small {
+    .cv-classic__item-header>small {
         text-align: left;
     }
-}
-
-/* ========================================
-   PROJECTS
-======================================== */
-
-.cv-classic__projects {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-}
-
-.cv-classic__project {
-    padding: 0 0 17px;
-    margin: 0 0 17px;
-    border-bottom: 1px solid #dfe3e7;
-}
-
-.cv-classic__project:last-child {
-    padding-bottom: 0;
-    margin-bottom: 0;
-    border-bottom: 0;
-}
-
-.cv-classic__project-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 16px;
-}
-
-.cv-classic__project-title {
-    min-width: 0;
-}
-
-.cv-classic__project-title h3 {
-    margin: 0 0 4px;
-    color: #20262d;
-    font-size: 12px;
-    font-weight: 750;
-    line-height: 1.4;
-}
-
-.cv-classic__project-title h3 a {
-    color: inherit;
-    text-decoration: none;
-}
-
-.cv-classic__project-title h3 a:hover {
-    text-decoration: underline;
-}
-
-.cv-classic__project-title span {
-    display: block;
-    color: #59636e;
-    font-size: 8.8px;
-    font-weight: 600;
-    line-height: 1.45;
-}
-
-.cv-classic__project-description {
-    margin: 8px 0 0;
-    color: #4a525b;
-    font-size: 9.5px;
-    line-height: 1.65;
 }

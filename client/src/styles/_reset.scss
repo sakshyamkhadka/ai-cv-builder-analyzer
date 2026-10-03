@@ -1,5 +1,6 @@
 @use "variables";
 
+
 * {
   margin: 0;
   padding: 0;
@@ -11,6 +12,7 @@ html {
 }
 
 body {
+  font-family: 'Inter', sans-serif;
   font-family: variables.$font-family;
   background: variables.$color-background;
   color: variables.$color-text;

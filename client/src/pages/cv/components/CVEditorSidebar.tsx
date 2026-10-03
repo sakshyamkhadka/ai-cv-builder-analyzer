@@ -17,12 +17,16 @@ interface CVEditorSidebarProps {
     }>
     activeSection: string
     onSectionChange: (sectionId: EditorSection) => void
+    completionPercentage: number
+    missingFields: string[]
 }
 
 export default function CVEditorSidebar({
     sections,
     activeSection,
-    onSectionChange
+    onSectionChange,
+    completionPercentage,
+    missingFields
 }: CVEditorSidebarProps) {
     return (
         <aside className="cv-editor-sidebar">
@@ -58,7 +62,9 @@ export default function CVEditorSidebar({
 
                         {activeSection === section.id && (
                             <span className="cv-section-arrow">
-                                <FiChevronRight aria-hidden="true" />
+                                <FiChevronRight
+                                    aria-hidden="true"
+                                />
                             </span>
                         )}
                     </button>
@@ -74,29 +80,50 @@ export default function CVEditorSidebar({
                     </span>
 
                     <strong>
-                        25%
+                        {completionPercentage}%
                     </strong>
                 </div>
 
                 <div className="cv-completion-track">
-
                     <div
                         className="cv-completion-progress"
                         style={{
-                            width: '25%'
+                            width: `${completionPercentage}%`
                         }}
                     />
-
                 </div>
 
                 <p>
                     Complete your CV to unlock
                     AI analysis.
                 </p>
+                {missingFields.length > 0 && (
+                    <div className="cv-completion-missing">
+
+                        <strong>
+                            Missing
+                        </strong>
+
+                        <ul>
+                            {missingFields.map((field) => (
+                                <li key={field}>
+                                    {field}
+                                </li>
+                            ))}
+                        </ul>
+
+                    </div>
+                )}
+
+                {completionPercentage === 100 && (
+                    <p className="cv-completion-complete">
+                        Your CV is complete.
+                    </p>
+                )}
+
 
             </div>
 
         </aside>
     )
 }
-

@@ -13,6 +13,7 @@ import CVEditorHeader from './components/CVEditorHeader'
 import CVEditorWorkspace from './components/CVEditorWorkspace'
 import CVEditorSidebar from './components/CVEditorSidebar'
 import CVPreviewPanel from './components/CVPreviewPanel'
+import { useCVCompletion } from './hooks/useCVCompletion'
 
 import { useCVPhoto } from './hooks/useCVPhoto'
 import { useCVPreview } from './hooks/useCVPreview'
@@ -155,7 +156,23 @@ const EditCV = () => {
         loadCV,
         setError
     })
+    const {
+        percentage: completionPercentage,
+        missing: missingFields
+    } = useCVCompletion({
+        fullName,
+        email,
+        phone,
+        location,
+        summary,
 
+        educationCount: education.length,
+        skillsCount: skills.length,
+        experienceCount: experiences.length,
+        projectsCount: projects.length,
+        certificationsCount: certifications.length,
+        languagesCount: languages.length
+    })
 
 
 
@@ -221,8 +238,9 @@ const EditCV = () => {
                     sections={editorSections}
                     activeSection={activeSection}
                     onSectionChange={setActiveSection}
+                    completionPercentage={completionPercentage}
+                    missingFields={missingFields}
                 />
-
 
                 <CVEditorWorkspace
                     activeSection={activeSection}
