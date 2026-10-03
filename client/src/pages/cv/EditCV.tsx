@@ -234,10 +234,7 @@ const EditCV = () => {
                     email={email}
                     phone={phone}
                     location={location}
-
-                    photoUrl={
-                        photoPreview || photoUrl
-                    }
+                    photoUrl={photoUrl}
 
                     linkedinUrl={linkedinUrl}
                     githubUrl={githubUrl}
