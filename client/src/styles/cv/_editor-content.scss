@@ -1,0 +1,167 @@
+@use '../variables' as *;
+/* ========================================
+   CENTER EDITOR
+======================================== */
+
+.cv-editor-main {
+  min-width: 0;
+
+  background: #f8f8fa;
+
+  border-right: 1px solid $color-border;
+
+  overflow-y: auto;
+}
+
+.cv-editor-content {
+  width: min(760px, 100%);
+
+  margin: 0 auto;
+
+  padding: 2.5rem 2rem 4rem;
+}
+
+.cv-content-heading {
+  margin-bottom: 1.5rem;
+
+  span {
+    color: $color-primary;
+
+    font-size: 0.68rem;
+    font-weight: 800;
+
+    letter-spacing: 0.12em;
+  }
+
+  h2 {
+    margin: 0.35rem 0 0.45rem;
+
+    color: $color-text;
+
+    font-size: 1.65rem;
+    line-height: 1.2;
+  }
+
+  p {
+    margin: 0;
+
+    color: $color-text-light;
+
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+}
+
+.cv-editor-panel {
+  margin-bottom: 1.25rem;
+
+  padding: 1.4rem;
+
+  background: $color-white;
+
+  border: 1px solid $color-border;
+  border-radius: 14px;
+
+  box-shadow:
+    0 8px 25px rgba(15, 23, 42, 0.035);
+}
+
+.cv-editor-panel .editor-section {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.cv-editor-panel .editor-section-header {
+  margin-bottom: 1rem;
+}
+
+.cv-editor-panel .editor-section-header h2 {
+  font-size: 1.15rem;
+}
+
+.cv-field-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 1rem;
+
+  margin-bottom: 0.4rem;
+
+  label {
+    margin-bottom: 0 !important;
+  }
+
+  span {
+    color: $color-primary;
+
+    font-size: 0.68rem;
+    font-weight: 800;
+
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+  }
+}
+
+.cv-ai-hint {
+  margin-top: 0.75rem;
+
+  display: flex;
+  align-items: flex-start;
+
+  gap: 0.5rem;
+
+  padding: 0.7rem 0.8rem;
+
+  border-radius: 8px;
+
+  background: rgba(108, 99, 255, 0.055);
+
+  span {
+    color: $color-primary;
+
+    font-weight: 800;
+  }
+
+  p {
+    margin: 0;
+
+    color: $color-text-light;
+
+    font-size: 0.76rem;
+    line-height: 1.45;
+  }
+}
+
+.cv-panel-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 1rem;
+
+  margin-bottom: 1rem;
+
+  span {
+    color: $color-primary;
+
+    font-size: 0.65rem;
+    font-weight: 800;
+
+    letter-spacing: 0.1em;
+  }
+
+  h3 {
+    margin: 0.3rem 0 0;
+
+    font-size: 1rem;
+  }
+
+  p {
+    margin: 0;
+
+    color: $color-text-light;
+
+    font-size: 0.75rem;
+  }
+}

@@ -1,7 +1,4 @@
-import {
-    useRef,
-    useState
-} from 'react'
+import { useRef, useState } from 'react'
 
 import { downloadElementAsPdf } from '../../utils/pdf'
 
@@ -19,11 +16,23 @@ import type {
 
 interface CVPreviewProps {
     templateId: number
+
     title: string
+
     fullName: string
     email: string
     phone: string
+
+    location: string
+
+    photoUrl: string
+
+    linkedinUrl: string
+    githubUrl: string
+    portfolioUrl: string
+
     summary: string
+
     education: Education[]
     skills: Skill[]
     experiences: Experience[]
@@ -34,11 +43,23 @@ interface CVPreviewProps {
 
 export default function CVPreview({
     templateId,
+
     title,
+
     fullName,
     email,
     phone,
+
+    location,
+
+    photoUrl,
+
+    linkedinUrl,
+    githubUrl,
+    portfolioUrl,
+
     summary,
+
     education,
     skills,
     experiences,
@@ -74,10 +95,21 @@ export default function CVPreview({
 
     const templateProps = {
         title,
+
         fullName,
         email,
         phone,
+
+        location,
+
+        photoUrl,
+
+        linkedinUrl,
+        githubUrl,
+        portfolioUrl,
+
         summary,
+
         education,
         skills,
         experiences,
@@ -114,7 +146,9 @@ export default function CVPreview({
 
                     <button
                         type="button"
-                        onClick={handleDownloadPdf}
+                        onClick={
+                            handleDownloadPdf
+                        }
                         disabled={isExporting}
                     >
                         {isExporting

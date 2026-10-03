@@ -12,18 +12,35 @@ function ClassicSection({
     children: ReactNode
 }) {
     return (
-        <section className="cv-preview__section">
+        <section className="cv-classic__section">
             <h2>{title}</h2>
             {children}
         </section>
     )
 }
 
+const getProfileName = (url: string) => {
+    try {
+        const parsed = new URL(url)
+        const parts = parsed.pathname
+            .split('/')
+            .filter(Boolean)
+
+        return parts[parts.length - 1] || url
+    } catch {
+        return url
+    }
+}
 export default function ClassicTemplate({
     title,
     fullName,
+    photoUrl,
     email,
     phone,
+    location,
+    linkedinUrl,
+    githubUrl,
+    portfolioUrl,
     summary,
     education,
     skills,
@@ -33,246 +50,356 @@ export default function ClassicTemplate({
     languages
 }: TemplateProps) {
     return (
-        <>
-            <header className="cv-preview__header">
+        <div className="cv-classic">
 
-                <h1>
-                    {fullName || 'Your Name'}
-                </h1>
+            <header className="cv-classic__header">
 
-                <p className="cv-preview__role">
-                    {title || 'Professional Resume'}
-                </p>
+                <div className="cv-classic__header-content">
 
-                <div className="cv-preview__contact">
-
-                    {email && (
-                        <span>
-                            📧 {email}
-                        </span>
+                    {photoUrl && (
+                        <img
+                            src={photoUrl}
+                            alt="Profile"
+                            className="cv-classic__photo"
+                        />
                     )}
 
-                    {phone && (
-                        <span>
-                            📱 {phone}
-                        </span>
-                    )}
+                    <div className="cv-classic__identity">
+                        <h1>
+                            {fullName || 'YOUR NAME'}
+                        </h1>
+
+                        <p>
+                            {title || 'Professional Resume'}
+                        </p>
+                    </div>
 
                 </div>
 
             </header>
 
-            {summary && (
-                <ClassicSection title="Professional Summary">
-                    <p>{summary}</p>
-                </ClassicSection>
-            )}
+            <div className="cv-classic__body">
 
-            {education.length > 0 && (
-                <ClassicSection title="Education">
+                <aside className="cv-classic__sidebar">
 
-                    {education.map((item) => (
-                        <div
-                            className="cv-preview__item"
-                            key={item.id}
-                        >
-                            <strong>
-                                {item.degree}
-                            </strong>
+                    {(email ||
+                        phone ||
+                        location ||
+                        linkedinUrl ||
+                        githubUrl ||
+                        portfolioUrl) && (
+                        <ClassicSection title="Contact">
 
-                            {item.field && (
-                                <span>
-                                    {item.field}
-                                </span>
-                            )}
+                            <div className="cv-classic__contact">
 
-                            <span>
-                                {item.institution}
-                            </span>
+                                {email && (
+                                    <div>
+                                        <strong>Email</strong>
+                                        <span>{email}</span>
+                                    </div>
+                                )}
 
-                            {(item.startDate ||
-                                item.endDate) && (
-                                <small>
-                                    {item.startDate || ''}
-                                    {' — '}
-                                    {item.endDate ||
-                                        'Present'}
-                                </small>
-                            )}
+                                {phone && (
+                                    <div>
+                                        <strong>Phone</strong>
+                                        <span>{phone}</span>
+                                    </div>
+                                )}
 
-                            {item.description && (
-                                <p>
-                                    {item.description}
-                                </p>
-                            )}
-                        </div>
-                    ))}
+                                {location && (
+                                    <div>
+                                        <strong>Location</strong>
+                                        <span>{location}</span>
+                                    </div>
+                                )}
 
-                </ClassicSection>
-            )}
+                                {linkedinUrl && (
+                                    <div>
+                                        <strong>LinkedIn</strong>
+                                        <a
+                                            href={linkedinUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            {getProfileName(linkedinUrl)}
+                                        </a>
+                                    </div>
+                                )}
 
-            {experiences.length > 0 && (
-                <ClassicSection title="Experience">
+                                {githubUrl && (
+                                    <div>
+                                        <strong>GitHub</strong>
+                                        <a
+                                            href={githubUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            {getProfileName(githubUrl)}
+                                        </a>
+                                    </div>
+                                )}
 
-                    {experiences.map((item) => (
-                        <div
-                            className="cv-preview__item"
-                            key={item.id}
-                        >
-                            <strong>
-                                {item.position}
-                            </strong>
+                                {portfolioUrl && (
+                                    <div>
+                                        <strong>Portfolio</strong>
+                                        <a
+                                            href={portfolioUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            Resume
+                                        </a>
+                                    </div>
+                                )}
 
-                            <span>
-                                {item.company}
-                            </span>
+                            </div>
 
-                            {(item.startDate ||
-                                item.endDate) && (
-                                <small>
-                                    {item.startDate || ''}
-                                    {' — '}
-                                    {item.endDate ||
-                                        'Present'}
-                                </small>
-                            )}
+                        </ClassicSection>
+                    )}
 
-                            {item.description && (
-                                <p>
-                                    {item.description}
-                                </p>
-                            )}
-                        </div>
-                    ))}
+                    {education.length > 0 && (
+                        <ClassicSection title="Education">
 
-                </ClassicSection>
-            )}
-
-            {skills.length > 0 && (
-                <ClassicSection title="Skills">
-
-                    <div className="cv-preview__skills">
-
-                        {skills.map((skill) => (
-                            <span
-                                key={skill.id}
-                                className="cv-preview__skill"
-                            >
-                                {skill.name}
-
-                                {skill.level
-                                    ? ` · ${skill.level}`
-                                    : ''}
-                            </span>
-                        ))}
-
-                    </div>
-
-                </ClassicSection>
-            )}
-
-            {projects.length > 0 && (
-                <ClassicSection title="Projects">
-
-                    {projects.map((project) => (
-                        <div
-                            className="cv-preview__item"
-                            key={project.id}
-                        >
-                            <strong>
-                                {project.name}
-                            </strong>
-
-                            {project.technologies && (
-                                <span>
-                                    {project.technologies}
-                                </span>
-                            )}
-
-                            {project.description && (
-                                <p>
-                                    {project.description}
-                                </p>
-                            )}
-
-                            {project.projectUrl && (
-                                <a
-                                    href={project.projectUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="cv-preview__project-link"
+                            {education.map((item) => (
+                                <div
+                                    className="cv-classic__item"
+                                    key={item.id}
                                 >
-                                    View Project →
-                                </a>
-                            )}
-                        </div>
-                    ))}
+                                    <strong>
+                                        {item.degree}
+                                    </strong>
 
-                </ClassicSection>
-            )}
+                                    {item.field && (
+                                        <span>
+                                            {item.field}
+                                        </span>
+                                    )}
 
-            {certifications.length > 0 && (
-                <ClassicSection title="Certifications">
+                                    <span>
+                                        {item.institution}
+                                    </span>
 
-                    {certifications.map((item) => (
-                        <div
-                            className="cv-preview__item"
-                            key={item.id}
-                        >
-                            <strong>
-                                {item.name}
-                            </strong>
+                                    {(item.startDate ||
+                                        item.endDate) && (
+                                        <small>
+                                            {item.startDate || ''}
+                                            {' - '}
+                                            {item.endDate || 'Present'}
+                                        </small>
+                                    )}
 
-                            {item.organization && (
-                                <span>
-                                    {item.organization}
-                                </span>
-                            )}
+                                </div>
+                            ))}
 
-                            {item.issueDate && (
-                                <small>
-                                    {item.issueDate}
-                                </small>
-                            )}
+                        </ClassicSection>
+                    )}
 
-                            {item.credentialUrl && (
-                                <a
-                                    href={item.credentialUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="cv-preview__project-link"
+                    {skills.length > 0 && (
+                        <ClassicSection title="Skills">
+
+                            <div className="cv-classic__skills">
+
+                                {skills.map((skill) => (
+                                    <div
+                                        className="cv-classic__skill"
+                                        key={skill.id}
+                                    >
+                                        <span>{skill.name}</span>
+
+                                        {skill.level && (
+                                            <small>
+                                                {skill.level}
+                                            </small>
+                                        )}
+                                    </div>
+                                ))}
+
+                            </div>
+
+                        </ClassicSection>
+                    )}
+
+                    {languages.length > 0 && (
+                        <ClassicSection title="Languages">
+
+                            <div className="cv-classic__languages">
+
+                                {languages.map((language) => (
+                                    <div
+                                        key={language.id}
+                                    >
+                                        <strong>
+                                            {language.name}
+                                        </strong>
+
+                                        {language.proficiency && (
+                                            <span>
+                                                {language.proficiency}
+                                            </span>
+                                        )}
+                                    </div>
+                                ))}
+
+                            </div>
+
+                        </ClassicSection>
+                    )}
+
+                </aside>
+
+                <main className="cv-classic__main">
+
+                    {summary && (
+                        <ClassicSection title="Profile">
+
+                            <p className="cv-classic__summary">
+                                {summary}
+                            </p>
+
+                        </ClassicSection>
+                    )}
+
+                    {experiences.length > 0 && (
+                        <ClassicSection title="Professional Experience">
+
+                            {experiences.map((item) => (
+                                <div
+                                    className="cv-classic__item"
+                                    key={item.id}
                                 >
-                                    View Credential →
-                                </a>
-                            )}
-                        </div>
-                    ))}
+                                    <div className="cv-classic__item-header">
 
-                </ClassicSection>
-            )}
+                                        <div>
+                                            <strong>
+                                                {item.position}
+                                            </strong>
 
-            {languages.length > 0 && (
-                <ClassicSection title="Languages">
+                                            <span>
+                                                {item.company}
+                                            </span>
+                                        </div>
 
-                    <div className="cv-preview__skills">
+                                        {(item.startDate ||
+                                            item.endDate) && (
+                                            <small>
+                                                {item.startDate || ''}
+                                                {' - '}
+                                                {item.endDate || 'Present'}
+                                            </small>
+                                        )}
 
-                        {languages.map((language) => (
-                            <span
-                                key={language.id}
-                                className="cv-preview__skill"
-                            >
-                                {language.name}
+                                    </div>
 
-                                {language.proficiency
-                                    ? ` · ${language.proficiency}`
-                                    : ''}
-                            </span>
-                        ))}
+                                    {item.description && (
+                                        <p>
+                                            {item.description}
+                                        </p>
+                                    )}
 
-                    </div>
+                                </div>
+                            ))}
 
-                </ClassicSection>
-            )}
-        </>
+                        </ClassicSection>
+                    )}
+
+                    {projects.length > 0 && (
+                        <ClassicSection title="Projects">
+
+                            <div className="cv-classic__projects">
+
+                                {projects.map((project) => (
+                                    <article
+                                        className="cv-classic__project"
+                                        key={project.id}
+                                    >
+
+                                        <div className="cv-classic__project-header">
+
+                                            <div className="cv-classic__project-title">
+
+                                                <h3>
+                                                    {project.projectUrl ? (
+                                                        <a
+                                                            href={project.projectUrl}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                        >
+                                                            {project.name}
+                                                        </a>
+                                                    ) : (
+                                                        project.name
+                                                    )}
+                                                </h3>
+
+                                                {project.technologies && (
+                                                    <span>
+                                                        {project.technologies}
+                                                    </span>
+                                                )}
+
+                                            </div>
+
+                                        </div>
+
+                                        {project.description && (
+                                            <p className="cv-classic__project-description">
+                                                {project.description}
+                                            </p>
+                                        )}
+
+                                    </article>
+                                ))}
+
+                            </div>
+
+                        </ClassicSection>
+                    )}
+
+                    {certifications.length > 0 && (
+                        <ClassicSection title="Certifications">
+
+                            {certifications.map((item) => (
+                                <div
+                                    className="cv-classic__item"
+                                    key={item.id}
+                                >
+                                    <strong>
+                                        {item.name}
+                                    </strong>
+
+                                    {item.organization && (
+                                        <span>
+                                            {item.organization}
+                                        </span>
+                                    )}
+
+                                    {item.issueDate && (
+                                        <small>
+                                            {item.issueDate}
+                                        </small>
+                                    )}
+
+                                    {item.credentialUrl && (
+                                        <a
+                                            href={item.credentialUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="cv-classic__link"
+                                        >
+                                            View Credential
+                                        </a>
+                                    )}
+
+                                </div>
+                            ))}
+
+                        </ClassicSection>
+                    )}
+
+                </main>
+
+            </div>
+
+        </div>
     )
 }

@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 import {
   optionalTextSchema,
+  optionalUrlSchema,
   shortTextSchema,
   phoneSchema as commonPhoneSchema
 } from './common.validator.js'
@@ -16,6 +17,12 @@ const summarySchema =
 
 const fullNameSchema =
   optionalTextSchema(150)
+
+const locationSchema =
+  optionalTextSchema(200)
+
+const photoUrlSchema =
+  optionalTextSchema(500)
 
 const emailSchema = z
   .preprocess(
@@ -61,6 +68,21 @@ export const createCVSchema =
     phone:
       phoneSchema,
 
+    location:
+      locationSchema,
+
+    photoUrl:
+      photoUrlSchema,
+
+    linkedinUrl:
+      optionalUrlSchema,
+
+    githubUrl:
+      optionalUrlSchema,
+
+    portfolioUrl:
+      optionalUrlSchema,
+
     templateId:
       templateIdSchema,
 
@@ -84,6 +106,21 @@ export const updateCVSchema =
 
     phone:
       phoneSchema,
+
+    location:
+      locationSchema,
+
+    photoUrl:
+      photoUrlSchema,
+
+    linkedinUrl:
+      optionalUrlSchema,
+
+    githubUrl:
+      optionalUrlSchema,
+
+    portfolioUrl:
+      optionalUrlSchema,
 
     templateId:
       templateIdSchema,

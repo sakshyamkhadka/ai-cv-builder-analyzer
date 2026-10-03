@@ -1,27 +1,9 @@
-import type { ReactNode } from 'react'
-
-import type {
-    TemplateProps
-} from './template.types'
-
-function ModernSection({
-    title,
-    children
-}: {
-    title: string
-    children: ReactNode
-}) {
-    return (
-        <section className="cv-preview-modern__section">
-            <h2>{title}</h2>
-            {children}
-        </section>
-    )
-}
+import type { TemplateProps } from './template.types'
 
 export default function ModernTemplate({
     title,
     fullName,
+    photoUrl,
     email,
     phone,
     summary,
@@ -35,229 +17,258 @@ export default function ModernTemplate({
     return (
         <div className="cv-preview-modern">
 
-            <header className="cv-preview-modern__header">
+            {/* LEFT SIDEBAR */}
+            <aside className="cv-preview-modern__sidebar">
 
-                <div>
-                    <h1>
-                        {fullName || 'Your Name'}
-                    </h1>
+                <div className="cv-preview-modern__identity">
 
-                    <p>
-                        {title || 'Professional Resume'}
-                    </p>
+                    {photoUrl && (
+                        <img
+                            src={photoUrl}
+                            alt="Profile"
+                            className="cv-preview-modern__photo"
+                        />
+                    )}
+                    <h1>{fullName || 'Your Name'}</h1>
+
+                    {title && (
+                        <p>{title}</p>
+                    )}
                 </div>
 
-                <div className="cv-preview-modern__contact">
+                {/* CONTACT */}
+                <section className="cv-preview-modern__sidebar-section">
+                    <h2>Contact</h2>
 
-                    {email && (
-                        <span>
-                            {email}
-                        </span>
-                    )}
+                    <div className="cv-preview-modern__contact">
+                        {email && (
+                            <div>
+                                <span>Email</span>
+                                <strong>{email}</strong>
+                            </div>
+                        )}
 
-                    {phone && (
-                        <span>
-                            {phone}
-                        </span>
-                    )}
+                        {phone && (
+                            <div>
+                                <span>Phone</span>
+                                <strong>{phone}</strong>
+                            </div>
+                        )}
+                    </div>
+                </section>
 
-                </div>
+                {/* SKILLS */}
+                {skills.length > 0 && (
+                    <section className="cv-preview-modern__sidebar-section">
+                        <h2>Skills</h2>
 
-            </header>
-
-            <div className="cv-preview-modern__body">
-
-                <aside className="cv-preview-modern__sidebar">
-
-                    {skills.length > 0 && (
-                        <section className="cv-preview-modern__sidebar-section">
-
-                            <h2>
-                                Skills
-                            </h2>
-
-                            <div className="cv-preview-modern__skill-list">
-
-                                {skills.map((skill) => (
-                                    <div
-                                        key={skill.id}
-                                        className="cv-preview-modern__skill"
-                                    >
-                                        <strong>
-                                            {skill.name}
-                                        </strong>
+                        <div className="cv-preview-modern__skill-list">
+                            {skills.map((skill) => (
+                                <div
+                                    key={skill.id}
+                                    className="cv-preview-modern__skill"
+                                >
+                                    <div className="cv-preview-modern__skill-name">
+                                        <strong>{skill.name}</strong>
 
                                         {skill.level && (
-                                            <span>
-                                                {skill.level}
-                                            </span>
+                                            <span>{skill.level}</span>
                                         )}
                                     </div>
-                                ))}
 
-                            </div>
-
-                        </section>
-                    )}
-
-                    {languages.length > 0 && (
-                        <section className="cv-preview-modern__sidebar-section">
-
-                            <h2>
-                                Languages
-                            </h2>
-
-                            <div className="cv-preview-modern__language-list">
-
-                                {languages.map((language) => (
                                     <div
-                                        key={language.id}
+                                        className="cv-preview-modern__skill-bar"
+                                        aria-hidden="true"
                                     >
-                                        <strong>
-                                            {language.name}
-                                        </strong>
-
-                                        {language.proficiency && (
-                                            <span>
-                                                {language.proficiency}
-                                            </span>
-                                        )}
+                                        <span />
                                     </div>
-                                ))}
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                )}
 
-                            </div>
+                {/* LANGUAGES */}
+                {languages.length > 0 && (
+                    <section className="cv-preview-modern__sidebar-section">
+                        <h2>Languages</h2>
 
-                        </section>
-                    )}
+                        <div className="cv-preview-modern__language-list">
+                            {languages.map((language) => (
+                                <div key={language.id}>
+                                    <strong>{language.name}</strong>
 
-                </aside>
+                                    {language.proficiency && (
+                                        <span>
+                                            {language.proficiency}
+                                        </span>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                )}
 
-                <main className="cv-preview-modern__main">
+            </aside>
 
-                    {summary && (
-                        <ModernSection title="Profile">
-                            <p>
-                                {summary}
-                            </p>
-                        </ModernSection>
-                    )}
+            {/* MAIN CONTENT */}
+            <main className="cv-preview-modern__main">
 
-                    {experiences.length > 0 && (
-                        <ModernSection title="Experience">
+                {/* PROFILE */}
+                {summary && (
+                    <section className="cv-preview-modern__section">
+                        <div className="cv-preview-modern__section-heading">
+                            <span className="cv-preview-modern__section-number">
+                                01
+                            </span>
 
-                            {experiences.map((item) => (
+                            <h2>Profile</h2>
+                        </div>
+
+                        <p className="cv-preview-modern__summary">
+                            {summary}
+                        </p>
+                    </section>
+                )}
+
+                {/* EXPERIENCE */}
+                {experiences.length > 0 && (
+                    <section className="cv-preview-modern__section">
+                        <div className="cv-preview-modern__section-heading">
+                            <span className="cv-preview-modern__section-number">
+                                02
+                            </span>
+
+                            <h2>Experience</h2>
+                        </div>
+
+                        <div className="cv-preview-modern__timeline">
+                            {experiences.map((experience) => (
                                 <article
-                                    className="cv-preview-modern__item"
-                                    key={item.id}
+                                    key={experience.id}
+                                    className="cv-preview-modern__timeline-item"
                                 >
+                                    <div className="cv-preview-modern__timeline-dot" />
 
-                                    <div className="cv-preview-modern__item-heading">
+                                    <div className="cv-preview-modern__timeline-content">
+                                        <div className="cv-preview-modern__item-heading">
+                                            <div>
+                                                <h3>
+                                                    {experience.position}
+                                                </h3>
 
-                                        <div>
-                                            <h3>
-                                                {item.position}
-                                            </h3>
+                                                <p>
+                                                    {experience.company}
+                                                </p>
+                                            </div>
 
-                                            <p>
-                                                {item.company}
-                                            </p>
+                                            {(experience.startDate ||
+                                                experience.endDate) && (
+                                                <span>
+                                                    {experience.startDate || ''}
+                                                    {experience.startDate &&
+                                                    experience.endDate
+ ? ' - '
+                                                        : ''}
+                                                    {experience.endDate || 'Present'}
+                                                </span>
+                                            )}
                                         </div>
 
-                                        {(item.startDate ||
-                                            item.endDate) && (
-                                            <span>
-                                                {item.startDate || ''}
-                                                {' — '}
-                                                {item.endDate ||
-                                                    'Present'}
-                                            </span>
+                                        {experience.description && (
+                                            <p>
+                                                {experience.description}
+                                            </p>
                                         )}
-
                                     </div>
-
-                                    {item.description && (
-                                        <p>
-                                            {item.description}
-                                        </p>
-                                    )}
-
                                 </article>
                             ))}
+                        </div>
+                    </section>
+                )}
 
-                        </ModernSection>
-                    )}
+                {/* EDUCATION */}
+                {education.length > 0 && (
+                    <section className="cv-preview-modern__section">
+                        <div className="cv-preview-modern__section-heading">
+                            <span className="cv-preview-modern__section-number">
+                                03
+                            </span>
 
-                    {education.length > 0 && (
-                        <ModernSection title="Education">
+                            <h2>Education</h2>
+                        </div>
 
+                        <div className="cv-preview-modern__timeline">
                             {education.map((item) => (
                                 <article
-                                    className="cv-preview-modern__item"
                                     key={item.id}
+                                    className="cv-preview-modern__timeline-item"
                                 >
+                                    <div className="cv-preview-modern__timeline-dot" />
 
-                                    <div className="cv-preview-modern__item-heading">
+                                    <div className="cv-preview-modern__timeline-content">
+                                        <div className="cv-preview-modern__item-heading">
+                                            <div>
+                                                <h3>
+                                                    {item.degree}
+                                                </h3>
 
-                                        <div>
-                                            <h3>
-                                                {item.degree}
-                                            </h3>
-
-                                            {item.field && (
                                                 <p>
-                                                    {item.field}
+                                                    {item.institution}
+                                                    {item.field
+                                                        ? ` | ${item.field}`
+                                                        : ''}
                                                 </p>
-                                            )}
+                                            </div>
 
-                                            <p>
-                                                {item.institution}
-                                            </p>
+                                            {(item.startDate ||
+                                                item.endDate) && (
+                                                <span>
+                                                    {item.startDate || ''}
+                                                    {item.startDate &&
+                                                    item.endDate
+ ? ' - '
+                                                        : ''}
+                                                    {item.endDate || 'Present'}
+                                                </span>
+                                            )}
                                         </div>
 
-                                        {(item.startDate ||
-                                            item.endDate) && (
-                                            <span>
-                                                {item.startDate || ''}
-                                                {' — '}
-                                                {item.endDate ||
-                                                    'Present'}
-                                            </span>
+                                        {item.description && (
+                                            <p>
+                                                {item.description}
+                                            </p>
                                         )}
-
                                     </div>
-
-                                    {item.description && (
-                                        <p>
-                                            {item.description}
-                                        </p>
-                                    )}
-
                                 </article>
                             ))}
+                        </div>
+                    </section>
+                )}
 
-                        </ModernSection>
-                    )}
+                {/* PROJECTS */}
+                {projects.length > 0 && (
+                    <section className="cv-preview-modern__section">
+                        <div className="cv-preview-modern__section-heading">
+                            <span className="cv-preview-modern__section-number">
+                                04
+                            </span>
 
-                    {projects.length > 0 && (
-                        <ModernSection title="Projects">
+                            <h2>Projects</h2>
+                        </div>
 
+                        <div className="cv-preview-modern__cards">
                             {projects.map((project) => (
                                 <article
-                                    className="cv-preview-modern__item"
                                     key={project.id}
+                                    className="cv-preview-modern__project"
                                 >
-
-                                    <h3>
-                                        {project.name}
-                                    </h3>
+                                    <h3>{project.name}</h3>
 
                                     {project.technologies && (
-                                        <p>
-                                            <strong>
-                                                Technologies:
-                                            </strong>{' '}
+                                        <span className="cv-preview-modern__technology">
                                             {project.technologies}
-                                        </p>
+                                        </span>
                                     )}
 
                                     {project.description && (
@@ -270,62 +281,68 @@ export default function ModernTemplate({
                                         <a
                                             href={project.projectUrl}
                                             target="_blank"
-                                            rel="noopener noreferrer"
+                                            rel="noreferrer"
                                         >
-                                            View Project →
+                                            View Project
                                         </a>
                                     )}
-
                                 </article>
                             ))}
+                        </div>
+                    </section>
+                )}
 
-                        </ModernSection>
-                    )}
+                {/* CERTIFICATIONS */}
+                {certifications.length > 0 && (
+                    <section className="cv-preview-modern__section">
+                        <div className="cv-preview-modern__section-heading">
+                            <span className="cv-preview-modern__section-number">
+                                05
+                            </span>
 
-                    {certifications.length > 0 && (
-                        <ModernSection title="Certifications">
+                            <h2>Certifications</h2>
+                        </div>
 
-                            {certifications.map((item) => (
+                        <div className="cv-preview-modern__cards">
+                            {certifications.map((certification) => (
                                 <article
-                                    className="cv-preview-modern__item"
-                                    key={item.id}
+                                    key={certification.id}
+                                    className="cv-preview-modern__project"
                                 >
-
                                     <h3>
-                                        {item.name}
+                                        {certification.name}
                                     </h3>
 
-                                    {item.organization && (
-                                        <p>
-                                            {item.organization}
+                                    {certification.organization && (
+                                        <p className="cv-preview-modern__certification-org">
+                                            {certification.organization}
                                         </p>
                                     )}
 
-                                    {item.issueDate && (
-                                        <span>
-                                            {item.issueDate}
+                                    {certification.issueDate && (
+                                        <span className="cv-preview-modern__technology">
+                                            {certification.issueDate}
                                         </span>
                                     )}
 
-                                    {item.credentialUrl && (
+                                    {certification.credentialUrl && (
                                         <a
-                                            href={item.credentialUrl}
+                                            href={
+                                                certification.credentialUrl
+                                            }
                                             target="_blank"
-                                            rel="noopener noreferrer"
+                                            rel="noreferrer"
                                         >
-                                            View Credential →
+                                            View Credential
                                         </a>
                                     )}
-
                                 </article>
                             ))}
+                        </div>
+                    </section>
+                )}
 
-                        </ModernSection>
-                    )}
-
-                </main>
-
-            </div>
+            </main>
 
         </div>
     )

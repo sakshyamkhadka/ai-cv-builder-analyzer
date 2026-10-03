@@ -1,0 +1,229 @@
+@use '../variables' as *;
+/* ========================================
+   RESPONSIVE - 1450px
+======================================== */
+
+@media (max-width: 1450px) {
+  .cv-editor-workspace {
+    grid-template-columns:
+      225px minmax(390px, 1fr) minmax(360px, 0.9fr);
+  }
+
+  .cv-preview-stage {
+    padding: 2rem 1.25rem 3rem;
+  }
+
+  .cv-preview__paper {
+    padding: 48px 50px;
+  }
+}
+
+/* ========================================
+   RESPONSIVE - 1250px
+======================================== */
+
+@media (max-width: 1250px) {
+  .cv-editor-workspace {
+    grid-template-columns:
+      215px minmax(380px, 1fr) minmax(330px, 0.8fr);
+  }
+
+  .cv-editor-content {
+    padding: 2rem 1.5rem 3rem;
+  }
+
+  .cv-preview__paper {
+    padding: 42px 40px;
+  }
+
+  .cv-preview__header h1 {
+    font-size: 28px;
+  }
+}
+
+/* ========================================
+   RESPONSIVE - 1050px
+======================================== */
+
+@media (max-width: 1050px) {
+  .cv-editor-workspace {
+    grid-template-columns:
+      210px minmax(0, 1fr);
+  }
+
+  .cv-live-preview {
+    display: none;
+  }
+}
+
+/* ========================================
+   RESPONSIVE - 700px
+======================================== */
+
+@media (max-width: 700px) {
+  .cv-editor-topbar {
+    min-height: 68px;
+
+    padding: 0 1rem;
+  }
+
+  .cv-editor-topbar-actions {
+
+    .cv-save-status,
+    .cv-preview-button {
+      display: none;
+    }
+  }
+
+  .cv-editor-workspace {
+    display: block;
+
+    min-height: calc(100vh - 68px);
+  }
+
+  .cv-editor-sidebar {
+    position: static;
+
+    height: auto;
+
+    padding: 0.75rem;
+
+    border-right: 0;
+    border-bottom: 1px solid $color-border;
+
+    overflow: visible;
+  }
+
+  .cv-sidebar-heading {
+    display: none;
+  }
+
+  .cv-section-navigation {
+    display: grid;
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 0.35rem;
+  }
+
+  .cv-completion-card {
+    margin-top: 0.75rem;
+  }
+
+  .cv-editor-content {
+    width: 100%;
+
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  .cv-content-heading h2 {
+    font-size: 1.35rem;
+  }
+
+  .template-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cv-editor-panel {
+    padding: 1rem;
+  }
+
+  /* Mobile PDF toolbar */
+
+  .cv-preview__toolbar {
+    width: 100%;
+
+    justify-content: stretch;
+  }
+
+  .cv-preview__actions {
+    width: 100%;
+  }
+
+  .cv-preview__actions button {
+    width: 100%;
+  }
+
+  /* Mobile CV paper */
+
+  .cv-preview__paper {
+    width: 100%;
+
+    min-height: auto;
+
+    padding: 32px 28px;
+  }
+
+  .cv-preview__header h1 {
+    font-size: 24px;
+  }
+
+  .cv-preview__contact {
+    flex-direction: column;
+
+    gap: 4px;
+  }
+
+  .cv-preview__section {
+    margin-top: 20px;
+  }
+}
+
+/* ========================================
+   VERY SMALL SCREENS
+======================================== */
+
+@media (max-width: 420px) {
+  .cv-editor-topbar {
+    padding: 0 0.75rem;
+  }
+
+  .cv-editor-topbar-left {
+    gap: 0.5rem;
+  }
+
+  .cv-back-link {
+    width: 36px;
+    height: 36px;
+  }
+
+  .cv-editor-topbar h1 {
+    font-size: 0.9rem;
+  }
+
+  .cv-editor-content {
+    padding: 1.25rem 0.75rem 2.5rem;
+  }
+
+  .cv-preview-stage {
+    padding: 1.25rem 0.75rem 2.5rem;
+  }
+
+  .cv-preview__paper {
+    padding: 26px 22px;
+  }
+
+  .cv-preview__header h1 {
+    font-size: 22px;
+  }
+
+  .cv-preview__role {
+    font-size: 12px;
+  }
+
+  .cv-preview__section {
+    margin-top: 18px;
+  }
+
+  .cv-preview__section h2 {
+    font-size: 10px;
+  }
+
+  .cv-preview__actions button {
+    min-width: 0;
+    height: 42px;
+
+    font-size: 13px;
+  }
+}

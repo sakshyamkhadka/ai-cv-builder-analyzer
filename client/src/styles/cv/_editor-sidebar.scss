@@ -1,0 +1,184 @@
+@use '../variables' as *;
+/* ========================================
+   MAIN WORKSPACE
+======================================== */
+
+.cv-editor-workspace {
+  min-height: calc(100vh - 76px);
+
+  display: grid;
+
+  grid-template-columns:
+    245px minmax(420px, 1fr) minmax(420px, 0.95fr);
+}
+
+/* ========================================
+   LEFT SIDEBAR
+======================================== */
+
+.cv-editor-sidebar {
+  position: sticky;
+  top: 76px;
+
+  height: calc(100vh - 76px);
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 1.5rem 1rem;
+
+  background: $color-white;
+  border-right: 1px solid $color-border;
+
+  overflow-y: auto;
+}
+
+.cv-sidebar-heading {
+  padding: 0 0.75rem 1rem;
+
+  span {
+    color: $color-text-light;
+
+    font-size: 0.67rem;
+    font-weight: 800;
+
+    letter-spacing: 0.12em;
+  }
+}
+
+.cv-section-navigation {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.25rem;
+}
+
+.cv-section-nav-item {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 0.75rem;
+
+  padding: 0.75rem;
+
+  border: 1px solid transparent;
+  border-radius: $radius-md;
+
+  background: transparent;
+  color: $color-text-light;
+
+  font-family: $font-family;
+  font-size: 0.88rem;
+  font-weight: 600;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+
+  &:hover {
+    background: #f7f7f9;
+    color: $color-text;
+  }
+
+  &.active {
+    background: rgba(108, 99, 255, 0.07);
+    border-color: rgba(108, 99, 255, 0.12);
+    color: $color-primary;
+  }
+}
+
+.cv-section-number {
+  width: 28px;
+  height: 28px;
+
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  border-radius: 7px;
+
+  background: #f3f4f6;
+  color: $color-text-light;
+
+  font-size: 0.65rem;
+  font-weight: 800;
+}
+
+.cv-section-nav-item.active .cv-section-number {
+  background: $color-primary;
+  color: $color-white;
+}
+
+.cv-section-arrow {
+  margin-left: auto;
+
+  font-size: 1rem;
+}
+
+.cv-completion-card {
+  margin-top: auto;
+
+  padding: 1rem;
+
+  border: 1px solid $color-border;
+  border-radius: 12px;
+
+  background: #fafafd;
+}
+
+.cv-completion-header {
+  display: flex;
+  justify-content: space-between;
+
+  gap: 1rem;
+
+  margin-bottom: 0.65rem;
+
+  span {
+    color: $color-text-light;
+
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+
+  strong {
+    color: $color-primary;
+
+    font-size: 0.8rem;
+  }
+}
+
+.cv-completion-track {
+  height: 6px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: #e8e8ee;
+}
+
+.cv-completion-progress {
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: $color-primary;
+}
+
+.cv-completion-card p {
+  margin: 0.65rem 0 0;
+
+  color: $color-text-light;
+
+  font-size: 0.72rem;
+  line-height: 1.45;
+}

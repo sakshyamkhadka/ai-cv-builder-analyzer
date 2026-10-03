@@ -1,202 +1,516 @@
 .cv-preview-modern {
-    width: 100%;
+    width: 210mm;
     min-height: 297mm;
-    background: #ffffff;
-    color: #1f2937;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.cv-preview-modern__header {
-    display: flex;
-    justify-content: space-between;
-    gap: 32px;
-    padding: 32px 36px;
-    border-bottom: 2px solid #1f2937;
-}
-
-.cv-preview-modern__header h1 {
     margin: 0;
-    font-size: 32px;
+    padding: 0;
+    box-sizing: border-box;
+
+    display: grid;
+    grid-template-columns: 68mm 1fr;
+
+    background: #ffffff;
+    color: #172033;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    overflow: hidden;
+}
+
+/* ==============================
+   SIDEBAR
+   ============================== */
+
+.cv-preview-modern__sidebar {
+    width: 68mm;
+    min-height: 297mm;
+    box-sizing: border-box;
+
+    background: #202a3a;
+    color: #ffffff;
+
+    padding: 30px 22px;
+}
+
+.cv-preview-modern__identity {
+    padding-bottom: 28px;
+    margin-bottom: 28px;
+
+    border-bottom: 2px solid rgba(244, 180, 0, 0.7);
+}
+
+.cv-preview-modern__identity h1 {
+    margin: 0;
+
+    font-size: 28px;
     line-height: 1.15;
-    font-weight: 700;
-}
+    font-weight: 800;
+    letter-spacing: -0.5px;
 
-.cv-preview-modern__header > div:first-child p {
-    margin: 8px 0 0;
-    font-size: 15px;
-    color: #6b7280;
-}
-
-.cv-preview-modern__contact {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-    gap: 6px;
-    max-width: 220px;
-    font-size: 12px;
-    color: #4b5563;
-    text-align: right;
     overflow-wrap: anywhere;
 }
 
-.cv-preview-modern__body {
-    display: grid;
-    grid-template-columns: 62mm 1fr;
-    min-height: 250mm;
+.cv-preview-modern__identity p {
+    margin: 9px 0 0;
+
+    color: #f4b400;
+
+    font-size: 12px;
+    line-height: 1.4;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.cv-preview-modern__sidebar {
-    padding: 28px 22px;
-    background: #f3f4f6;
-    border-right: 1px solid #d1d5db;
-}
+/* ==============================
+   SIDEBAR SECTIONS
+   ============================== */
 
 .cv-preview-modern__sidebar-section {
     margin-bottom: 28px;
 }
 
 .cv-preview-modern__sidebar-section h2 {
-    margin: 0 0 14px;
-    padding-bottom: 7px;
-    border-bottom: 2px solid #1f2937;
-    font-size: 12px;
+    margin: 0 0 15px;
+
+    color: #f4b400;
+
+    font-size: 11px;
+    font-weight: 800;
+
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
 }
+
+/* ==============================
+   CONTACT
+   ============================== */
+
+.cv-preview-modern__contact {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.cv-preview-modern__contact div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.cv-preview-modern__contact span {
+    color: #9da8b8;
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.cv-preview-modern__contact strong {
+    color: #ffffff;
+
+    font-size: 10px;
+    line-height: 1.45;
+    font-weight: 500;
+
+    overflow-wrap: anywhere;
+}
+
+/* ==============================
+   SKILLS
+   ============================== */
 
 .cv-preview-modern__skill-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 13px;
 }
 
 .cv-preview-modern__skill {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 6px;
 }
 
-.cv-preview-modern__skill strong {
-    font-size: 12px;
+.cv-preview-modern__skill-name {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
 }
 
-.cv-preview-modern__skill span {
+.cv-preview-modern__skill-name strong {
+    color: #ffffff;
+
     font-size: 10px;
-    color: #6b7280;
+    font-weight: 600;
 }
+
+.cv-preview-modern__skill-name span {
+    color: #aeb7c5;
+
+    font-size: 8px;
+}
+
+.cv-preview-modern__skill-bar {
+    width: 100%;
+    height: 4px;
+
+    background: #394557;
+
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.cv-preview-modern__skill-bar span {
+    display: block;
+
+    width: 78%;
+    height: 100%;
+
+    background: #f4b400;
+
+    border-radius: inherit;
+}
+
+/* ==============================
+   LANGUAGES
+   ============================== */
 
 .cv-preview-modern__language-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 11px;
 }
 
 .cv-preview-modern__language-list div {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 8px;
 }
 
 .cv-preview-modern__language-list strong {
-    font-size: 12px;
+    color: #ffffff;
+
+    font-size: 10px;
+    font-weight: 600;
 }
 
 .cv-preview-modern__language-list span {
-    font-size: 10px;
-    color: #6b7280;
+    color: #aeb7c5;
+
+    font-size: 8px;
 }
+
+/* ==============================
+   MAIN CONTENT
+   ============================== */
 
 .cv-preview-modern__main {
-    padding: 28px 30px;
+    width: 142mm;
+    min-height: 297mm;
+
+    box-sizing: border-box;
+
+    padding: 30px 32px 40px;
+
+    background: #ffffff;
 }
+
+/* ==============================
+   SECTIONS
+   ============================== */
 
 .cv-preview-modern__section {
-    margin-bottom: 25px;
+    margin-bottom: 29px;
+
+    break-inside: avoid;
+    page-break-inside: avoid;
 }
 
-.cv-preview-modern__section h2 {
-    margin: 0 0 14px;
-    padding-bottom: 7px;
-    border-bottom: 1px solid #d1d5db;
+.cv-preview-modern__section:last-child {
+    margin-bottom: 0;
+}
+
+.cv-preview-modern__section-heading {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+
+    border-bottom: 1px solid #d9dee7;
+}
+
+.cv-preview-modern__section-number {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 25px;
+    height: 25px;
+
+    flex-shrink: 0;
+
+    background: #f4b400;
+    color: #202a3a;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    border-radius: 50%;
+}
+
+.cv-preview-modern__section-heading h2 {
+    margin: 0;
+
+    color: #172033;
+
     font-size: 14px;
+    font-weight: 800;
+
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
-.cv-preview-modern__section > p {
+/* ==============================
+   PROFILE
+   ============================== */
+
+.cv-preview-modern__summary {
     margin: 0;
-    font-size: 12px;
-    line-height: 1.65;
-    color: #4b5563;
+
+    color: #475467;
+
+    font-size: 11px;
+    line-height: 1.7;
 }
 
-.cv-preview-modern__item {
-    margin-bottom: 20px;
+/* ==============================
+   TIMELINE
+   ============================== */
+
+.cv-preview-modern__timeline {
+    position: relative;
+
+    margin-left: 11px;
+    padding-left: 22px;
+
+    border-left: 2px solid #e4e7ec;
 }
 
-.cv-preview-modern__item:last-child {
+.cv-preview-modern__timeline-item {
+    position: relative;
+
+    margin-bottom: 23px;
+
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+.cv-preview-modern__timeline-item:last-child {
     margin-bottom: 0;
+}
+
+.cv-preview-modern__timeline-dot {
+    position: absolute;
+
+    top: 3px;
+    left: -29px;
+
+    width: 12px;
+    height: 12px;
+
+    background: #f4b400;
+
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+
+    box-shadow: 0 0 0 1px #f4b400;
+}
+
+.cv-preview-modern__timeline-content {
+    min-width: 0;
 }
 
 .cv-preview-modern__item-heading {
     display: flex;
+
     justify-content: space-between;
-    gap: 20px;
+    align-items: flex-start;
+
+    gap: 15px;
 }
 
 .cv-preview-modern__item-heading h3 {
     margin: 0;
-    font-size: 14px;
-    line-height: 1.3;
+
+    color: #172033;
+
+    font-size: 12px;
+    line-height: 1.35;
+    font-weight: 800;
 }
 
 .cv-preview-modern__item-heading p {
     margin: 4px 0 0;
-    font-size: 11px;
-    color: #6b7280;
+
+    color: #667085;
+
+    font-size: 10px;
+    line-height: 1.4;
 }
 
 .cv-preview-modern__item-heading > span {
     flex-shrink: 0;
-    font-size: 10px;
-    color: #6b7280;
+
+    color: #667085;
+
+    font-size: 9px;
+    line-height: 1.4;
+
     white-space: nowrap;
 }
 
-.cv-preview-modern__item > h3 {
-    margin: 0 0 5px;
-    font-size: 14px;
+.cv-preview-modern__timeline-content > p {
+    margin: 8px 0 0;
+
+    color: #475467;
+
+    font-size: 10px;
+    line-height: 1.6;
 }
 
-.cv-preview-modern__item > p {
-    margin: 5px 0 0;
+/* ==============================
+   PROJECTS / CERTIFICATIONS
+   ============================== */
+
+.cv-preview-modern__cards {
+    display: flex;
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+.cv-preview-modern__project {
+    padding: 13px 15px;
+
+    border-left: 3px solid #f4b400;
+
+    background: #fafbfc;
+
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+.cv-preview-modern__project h3 {
+    margin: 0;
+
+    color: #172033;
+
     font-size: 11px;
+    font-weight: 800;
+}
+
+.cv-preview-modern__project p {
+    margin: 6px 0 0;
+
+    color: #475467;
+
+    font-size: 10px;
     line-height: 1.55;
-    color: #4b5563;
 }
 
-.cv-preview-modern__item > span {
-    display: block;
-    margin-top: 5px;
-    font-size: 10px;
-    color: #6b7280;
-}
-
-.cv-preview-modern__item a {
+.cv-preview-modern__technology {
     display: inline-block;
-    margin-top: 6px;
-    font-size: 10px;
-    color: #374151;
+
+    margin-top: 5px;
+
+    color: #9a6e00;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cv-preview-modern__certification-org {
+    margin-top: 4px !important;
+}
+
+.cv-preview-modern__project a {
+    display: inline-block;
+
+    margin-top: 7px;
+
+    color: #9a6e00;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+.cv-preview-modern__project a:hover {
     text-decoration: underline;
 }
 
+/* ==============================
+   A4 / PDF
+   ============================== */
+
+.cv-preview-modern,
+.cv-preview-modern * {
+    box-sizing: border-box;
+}
+
+
 @media print {
     .cv-preview-modern {
+        width: 210mm;
+        min-height: 297mm;
+
+        margin: 0;
+        padding: 0;
+
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .cv-preview-modern__sidebar {
+        width: 68mm;
+        min-height: 297mm;
+
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .cv-preview-modern__main {
+        width: 142mm;
         min-height: 297mm;
     }
 
-    .cv-preview-modern__body {
-        min-height: 250mm;
+    .cv-preview-modern__skill-bar,
+    .cv-preview-modern__skill-bar span,
+    .cv-preview-modern__section-number,
+    .cv-preview-modern__timeline-dot,
+    .cv-preview-modern__project {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
     }
+}
+/* PROFILE PHOTO */
+.cv-preview-modern__photo {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 16px;
 }

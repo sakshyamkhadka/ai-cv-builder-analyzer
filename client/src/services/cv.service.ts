@@ -7,6 +7,11 @@ export interface CV {
   fullName: string | null
   email: string | null
   phone: string | null
+  location: string | null
+  photoUrl: string | null
+  linkedinUrl: string | null
+  githubUrl: string | null
+  portfolioUrl: string | null
   templateId: number
   summary: string | null
   createdAt: string
@@ -39,6 +44,11 @@ export const createCV = (
     fullName?: string
     email?: string
     phone?: string
+    location?: string
+    photoUrl?: string
+    linkedinUrl?: string
+    githubUrl?: string
+    portfolioUrl?: string
     templateId: number
     summary?: string
   }
@@ -68,6 +78,11 @@ export const updateCV = (
     fullName?: string
     email?: string
     phone?: string
+    location?: string
+    photoUrl?: string
+    linkedinUrl?: string
+    githubUrl?: string
+    portfolioUrl?: string
     templateId: number
     summary?: string
   }

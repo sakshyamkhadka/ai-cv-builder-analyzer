@@ -1,0 +1,148 @@
+@use '../variables' as *;
+/* ========================================
+   TOP BAR
+======================================== */
+
+.cv-editor-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+
+  min-height: 76px;
+  padding: 0 1.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 1.5rem;
+
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid $color-border;
+
+  backdrop-filter: blur(14px);
+}
+
+.cv-editor-topbar-left {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 0.85rem;
+}
+
+.cv-back-link {
+  width: 40px;
+  height: 40px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+
+  color: $color-text;
+  background: $color-white;
+
+  text-decoration: none;
+  font-size: 1.2rem;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    background: #f8f8fa;
+    border-color: $color-primary;
+    color: $color-primary;
+  }
+}
+
+.cv-editor-eyebrow {
+  display: block;
+
+  margin-bottom: 0.15rem;
+
+  color: $color-primary;
+
+  font-size: 0.68rem;
+  font-weight: 800;
+
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cv-editor-topbar h1 {
+  margin: 0;
+
+  overflow: hidden;
+
+  color: $color-text;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cv-editor-topbar-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 0.65rem;
+
+  flex-shrink: 0;
+}
+
+.cv-save-status {
+  color: #16803c;
+
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.cv-preview-button,
+.cv-save-button {
+  min-height: 40px;
+
+  padding: 0.65rem 1rem;
+
+  border-radius: 9px;
+
+  font-family: $font-family;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.cv-preview-button {
+  border: 1px solid $color-border;
+
+  background: $color-white;
+  color: $color-text;
+
+  &:hover {
+    border-color: $color-primary;
+    color: $color-primary;
+  }
+}
+
+.cv-save-button {
+  border: 1px solid $color-primary;
+
+  background: $color-primary;
+  color: $color-white;
+
+  &:hover {
+    background: $color-primary-dark;
+    border-color: $color-primary-dark;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}

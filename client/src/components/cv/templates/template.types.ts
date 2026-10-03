@@ -47,10 +47,21 @@ export interface Language {
 
 export interface TemplateProps {
     title: string
+
     fullName: string
     email: string
     phone: string
+
+    location: string
+
+    photoUrl: string
+
+    linkedinUrl: string
+    githubUrl: string
+    portfolioUrl: string
+
     summary: string
+
     education: Education[]
     skills: Skill[]
     experiences: Experience[]

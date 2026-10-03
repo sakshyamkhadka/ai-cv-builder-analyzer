@@ -1,0 +1,45 @@
+@use '../variables' as *;
+
+/* ========================================
+   CV EDITOR PAGE
+======================================== */
+
+.cv-editor-page {
+  min-height: 100vh;
+  background: $color-background;
+  color: $color-text;
+}
+
+/* ========================================
+   LOADING / ERROR
+======================================== */
+
+.cv-editor-loading,
+.cv-editor-error {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.cv-loading-spinner {
+  width: 34px;
+  height: 34px;
+
+  border: 3px solid $color-border;
+  border-top-color: $color-primary;
+  border-radius: 50%;
+
+  animation: cv-spin 0.8s linear infinite;
+}
+
+@keyframes cv-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

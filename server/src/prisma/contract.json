@@ -80,6 +80,13 @@
                   "kind": "scalar"
                 }
               },
+              "githubUrl": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
               "id": {
                 "nullable": false,
                 "type": {
@@ -87,7 +94,35 @@
                   "kind": "scalar"
                 }
               },
+              "linkedinUrl": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "location": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
               "phone": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "photoUrl": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "portfolioUrl": {
                 "nullable": true,
                 "type": {
                   "codecId": "pg/text@1",
@@ -295,11 +330,26 @@
                 "fullName": {
                   "column": "fullName"
                 },
+                "githubUrl": {
+                  "column": "githubUrl"
+                },
                 "id": {
                   "column": "id"
                 },
+                "linkedinUrl": {
+                  "column": "linkedinUrl"
+                },
+                "location": {
+                  "column": "location"
+                },
                 "phone": {
                   "column": "phone"
+                },
+                "photoUrl": {
+                  "column": "photoUrl"
+                },
+                "portfolioUrl": {
+                  "column": "portfolioUrl"
                 },
                 "summary": {
                   "column": "summary"
@@ -1575,6 +1625,11 @@
                   "nativeType": "text",
                   "nullable": true
                 },
+                "githubUrl": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
                 "id": {
                   "codecId": "pg/int4@1",
                   "default": {
@@ -1584,7 +1639,27 @@
                   "nativeType": "int4",
                   "nullable": false
                 },
+                "linkedinUrl": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
+                "location": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
                 "phone": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
+                "photoUrl": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
+                },
+                "portfolioUrl": {
                   "codecId": "pg/text@1",
                   "nativeType": "text",
                   "nullable": true
@@ -2625,7 +2700,7 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "d595c37ff3c3c366a1d319fff95cff6c3c4ed558d45de2975511d097afbb2946"
+    "storageHash": "b4b3174863c640184e2598d813ea5be9ae0b213ea0e340dec4077333959ddfec"
   },
   "execution": {
     "executionHash": "eb0aeb2becfb9c96897436f6ddd60b33d872d53452ae18f5e9eb1ae1f0d7d242",

@@ -31,6 +31,11 @@ export const createCV = async (c: Context) => {
       fullName,
       email,
       phone,
+      location,
+      photoUrl,
+      linkedinUrl,
+      githubUrl,
+      portfolioUrl,
       templateId,
       summary
     } = result.data
@@ -55,6 +60,11 @@ export const createCV = async (c: Context) => {
       fullName: fullName || null,
       email: email || null,
       phone: phone || null,
+      location: location || null,
+      photoUrl: photoUrl || null,
+      linkedinUrl: linkedinUrl || null,
+      githubUrl: githubUrl || null,
+      portfolioUrl: portfolioUrl || null,
       templateId,
       summary: summary ?? null
     })
@@ -79,6 +89,7 @@ export const createCV = async (c: Context) => {
     )
   }
 }
+
 export const getMyCVs = async (c: Context) => {
   try {
     const authUser = c.get('user')
@@ -104,6 +115,7 @@ export const getMyCVs = async (c: Context) => {
     )
   }
 }
+
 export const getCVById = async (c: Context) => {
   try {
     const authUser = c.get('user')
@@ -154,6 +166,7 @@ export const getCVById = async (c: Context) => {
     )
   }
 }
+
 export const updateCV = async (c: Context) => {
   try {
     const authUser = c.get('user')
@@ -191,6 +204,11 @@ export const updateCV = async (c: Context) => {
       fullName,
       email,
       phone,
+      location,
+      photoUrl,
+      linkedinUrl,
+      githubUrl,
+      portfolioUrl,
       templateId,
       summary
     } = result.data
@@ -219,6 +237,11 @@ export const updateCV = async (c: Context) => {
         fullName: fullName || null,
         email: email || null,
         phone: phone || null,
+        location: location || null,
+        photoUrl: photoUrl || null,
+        linkedinUrl: linkedinUrl || null,
+        githubUrl: githubUrl || null,
+        portfolioUrl: portfolioUrl || null,
         templateId,
         summary: summary ?? null
       })
@@ -250,6 +273,7 @@ export const updateCV = async (c: Context) => {
     )
   }
 }
+
 export const deleteCV = async (c: Context) => {
   try {
     const authUser = c.get('user')
