@@ -3,6 +3,9 @@ import type { ReactNode } from 'react'
 import type {
     TemplateProps
 } from './template.types'
+import {
+    FiExternalLink
+} from 'react-icons/fi'
 
 function ClassicSection({
     title,
